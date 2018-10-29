@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import pdf_icon from './pdf_icon.png';
 import './Table.css';
 
 export interface ITableProps {

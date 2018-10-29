@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Table from './Table/Table';
+import Allocation from './Allocation/Allocation';
 
 class App extends Component {
 	
@@ -24,7 +25,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-		<p> Clean client </p>
+		<Table name="Supraveghetori" link="Vizualizeaza" />
+		<Table name="Candidati" link="Vizualizeaza" />
+		<Table name="Sali de examen" link="Vizualizeaza" />
+		<Allocation name="Repartizare"/>
       </div>
     );
   }

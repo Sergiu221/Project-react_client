@@ -1,0 +1,20 @@
+.buttonAllocation {
+  display: inline-block;
+  padding: 25px 17px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #00008B;
+  border: none;
+  border-radius: 15px;
+}
+
+.buttonAllocation:hover {background-color: #008B8B}
+
+.buttonAllocation:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+}

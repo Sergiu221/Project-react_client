@@ -1,0 +1,47 @@
+.table{
+	background-color:white;
+	font-weight: bold;
+}
+.tableproperties{
+	background-color:white;
+	width: 40%;
+	display: inline-flex;
+}
+
+#link{
+	width: 50%;
+}
+#pdf{
+	width: 50%;
+}
+
+.button {
+  display: inline-block;
+  padding: 25px 17px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+}
+
+.pdf_icon{
+  background-image: url(pdf_icon.png);
+	background-position: center left;
+	background-repeat: no-repeat;
+	padding-left: 80px;
+	height: 62px;
+	display: inline-block;
+	padding-top: 10px;
+}

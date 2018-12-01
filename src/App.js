@@ -25,9 +25,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-		<Table name="Supraveghetori" link="Vizualizeaza" />
-		<Table name="Candidati" link="Vizualizeaza" />
-		<Table name="Sali de examen" link="Vizualizeaza" />
+		<Table name="Supraveghetori" link="Upload" />
+		<Table name="Candidati" link="Upload" />
+		<Table name="Sali de examen" link="Upload" />
 		<Allocation name="Repartizare"/>
       </div>
     );

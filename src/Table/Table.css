@@ -8,14 +8,25 @@
 	display: inline-flex;
 }
 
-#link{
-	width: 50%;
-}
 #pdf{
 	width: 50%;
 }
 
-.button {
+.upload-btn-wrapper {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.btn {
   display: inline-block;
   padding: 25px 17px;
   font-size: 15px;
@@ -27,13 +38,6 @@
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
-}
-
-.button:hover {background-color: #3e8e41}
-
-.button:active {
-  background-color: #3e8e41;
-  transform: translateY(4px);
 }
 
 .pdf_icon{

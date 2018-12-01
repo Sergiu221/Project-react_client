@@ -11,14 +11,6 @@ class App extends Component {
     componentDidMount() {
         setInterval(this.hello, 250);
     }
-
-    hello = () => {
-        fetch('http://localhost:8080/greeting')
-            .then(response => response.text())
-            .then(message => {
-                this.setState({message: message});
-            });
-    };
   
   render() {
     return (

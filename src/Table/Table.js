@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './Table.css';
+import FileService  from './../Services/FileService.js';
 
 export interface ITableProps {
   name: string;
@@ -14,11 +15,30 @@ class Table extends Component {
 		super(props);
 		this.state = ({filename: "",
 						id_filename:"id_filname_"+this.props.name});
+		this.fileService = new FileService();
 	}
 	
-  fileSelectHandler =event =>{
-  this.state.filename = event.target.files[0].name;
-     const element = (
+  fileSelectHandler =(event) =>{
+	   const data = new FormData();
+	 this.state.filename = event.target.files[0].name;
+    let file = event.target.files[0];
+        console.log("Uploading file", event.target.files[0]);
+        data.append('file', event.target.files[0]);
+        data.append('name', 'my_file');
+        data.append('description', 'this file is uploaded by young padawan');
+	 this.fileService.uploadFileToServer(data).then((response) => {
+            console.log("File " + file.name + " is uploaded");
+        }).catch(function (error) {
+            console.log(error);
+            if (error.response) {
+                //HTTP error happened
+                console.log("Upload error. HTTP error/status code=",error.response.status);
+            } else {
+                //some other error happened
+               console.log("Upload error. HTTP error/status code=",error.message);
+            }
+        });
+	const element = (
    <p id={this.state.id_filename}> {this.state.filename}</p>);
    ReactDOM.render(element,document.getElementById(this.state.id_filename));
  }

@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import './Allocation.css';
 import FileService from './../Services/FileService.js';
+import { saveAs } from 'file-saver';
 
 export interface ITableProps {
 	name: string;
@@ -21,15 +22,12 @@ class Alocation extends Component {
 		console.log("Incerc sa generez un raport!");
 		alert("Incerc sa generez un raport!");
 
-		this.fileService.generateFileFromServer(this.props.link_server).then((response) => {}).catch(function (error) {
-			console.log(error);
-			if (error.response) {
-				//HTTP error happened
-				console.log("Upload error. HTTP error/status code=", error.response.status);
-			} else {
-				//some other error happened
-				console.log("Upload error. HTTP error/status code=", error.message);
-			}
+		this.fileService.generateFileFromServer(this.props.link_server).then((response) => {
+			console.log("Response", response);
+            saveAs(response.data, "raport.pdf");
+			
+		}).catch(function (error) {
+			
 		});
 	}
 	render() {

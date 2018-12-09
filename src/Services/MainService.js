@@ -24,7 +24,7 @@ class MainServices {
 				baseURL: 'http://localhost:8080/',
 				timeout: 10000,
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/pdf'
 				},
 			});
 		}

@@ -4,6 +4,7 @@ import React, {
 import './Allocation.css';
 import FileService from './../Services/FileService.js';
 import { saveAs } from 'file-saver';
+import Axios from 'axios';
 
 export interface ITableProps {
 	name: string;
@@ -24,21 +25,17 @@ class Alocation extends Component {
 
 		this.fileService.generateFileFromServer(this.props.link_server).then((response) => {
 			console.log("Response", response);
-            saveAs(response.data, "raport.pdf");
+			
+			
 			
 		}).catch(function (error) {
 			
 		});
 	}
 	render() {
-		return ( <
-			div className = "table" >
-			<
-			button className = "buttonAllocation"
-			onClick = {
-				this.fileSelectHandler
-			} > Repartizare < /button> <
-			/div>
+		return ( <div className = "table" >
+				<a className = "buttonAllocation" href="http://localhost:8080/generate_final_report" download> Repartizare </a> 
+			</div>
 		);
 	}
 }

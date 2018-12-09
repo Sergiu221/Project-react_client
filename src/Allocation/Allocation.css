@@ -12,7 +12,9 @@
   border-radius: 15px;
 }
 
-.buttonAllocation:hover {background-color: #008B8B}
+.buttonAllocation:hover {
+  background-color: #008B8B
+}
 
 .buttonAllocation:active {
   background-color: #3e8e41;

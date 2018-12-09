@@ -1,15 +1,16 @@
-.table{
-	background-color:white;
-	font-weight: bold;
-}
-.tableproperties{
-	background-color:white;
-	width: 40%;
-	display: inline-flex;
+.table {
+  background-color: white;
+  font-weight: bold;
 }
 
-#pdf{
-	width: 50%;
+.tableproperties {
+  background-color: white;
+  width: 40%;
+  display: inline-flex;
+}
+
+#pdf {
+  width: 50%;
 }
 
 .upload-btn-wrapper {
@@ -26,6 +27,7 @@
   top: 0;
   opacity: 0;
 }
+
 .btn {
   display: inline-block;
   padding: 25px 17px;
@@ -40,12 +42,12 @@
   border-radius: 15px;
 }
 
-.pdf_icon{
+.pdf_icon {
   background-image: url(pdf_icon.png);
-	background-position: center left;
-	background-repeat: no-repeat;
-	padding-left: 80px;
-	height: 62px;
-	display: inline-block;
-	padding-top: 10px;
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding-left: 80px;
+  height: 62px;
+  display: inline-block;
+  padding-top: 10px;
 }

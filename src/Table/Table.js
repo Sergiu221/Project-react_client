@@ -17,11 +17,14 @@ class Table extends Component implements ITableProps {
     super(props);
     console.log(this.props);
     this.state = ({
+		filename: "",	   
+	    id_filename: "id_filname_" + this.props.name
     });
     this.fileService = new FileService();
   }
 
   fileSelectHandler = (event) => {
+	  this.state.filename = event.target.files[0].name;
       const data = new FormData();
       let file = event.target.files[0];
       console.log("Uploading file", event.target.files[0]);

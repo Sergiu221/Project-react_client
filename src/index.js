@@ -5,6 +5,7 @@ import { Route, Link, BrowserRouter as Router, Switch } from "react-router-dom";
 import App from "./App";
 import CandidatesTable from "./candidates/CandidatesTable";
 import HallsTable from "./halls/HallsTable";
+import SupervisorsTable from "./supervisors/SupervisorsTable";
 import * as serviceWorker from "./serviceWorker";
 
 const routing = (
@@ -20,11 +21,15 @@ const routing = (
         <li>
           <Link to="/halls">Halls</Link>
         </li>
+        <li>
+          <Link to="/supervisors">Supervisors</Link>
+        </li>
       </ul>
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/candidates" component={CandidatesTable} />
         <Route path="/halls" component={HallsTable} />
+        <Route path="/supervisors" component={SupervisorsTable} />
       </Switch>
     </div>
   </Router>

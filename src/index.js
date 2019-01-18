@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Route, Link, BrowserRouter as Router , Switch } from 'react-router-dom'
 import App from './App';
-import CandidateTable from './Candidate/CandidateTable';
+import CandidatesTable from './candidates/CandidatesTable';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -14,12 +14,12 @@ const routing = (
          <Link to="/">Home</Link>
        </li>
        <li>
-         <Link to="/candidates">Users</Link>
+         <Link to="/candidates">Candidates</Link>
        </li>
      </ul>
      <Switch>
        <Route exact path="/" component={App} />
-       <Route path="/candidates" component={CandidateTable} />
+       <Route path="/candidates" component={CandidatesTable} />
      </Switch>
    </div>
  </Router>

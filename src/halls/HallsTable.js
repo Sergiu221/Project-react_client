@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import ReactExport from "react-data-export";
 
 class HallsTable extends Component {
   constructor(props) {
@@ -45,6 +46,9 @@ class HallsTable extends Component {
   }
 
   render() {
+    const ExcelFile = ReactExport.ExcelFile;
+    const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+    const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
     const columns = [
       {
         Header: "Nume",
@@ -58,11 +62,19 @@ class HallsTable extends Component {
       }
     ];
     return (
-      <ReactTable
-        columns={columns}
-        data={this.state.halls}
-        noDataText={"Te rog asteapta"}
-      />
+      <div>
+        <ReactTable
+          columns={columns}
+          data={this.state.halls}
+          noDataText={"Te rog, asteapta"}
+        />
+        <ExcelFile filename="Sali">
+          <ExcelSheet data={this.state.halls} name="Sali">
+            <ExcelColumn label="Nume" value="name" />
+            <ExcelColumn label="Nr de locuri" value="size" />
+          </ExcelSheet>
+        </ExcelFile>
+      </div>
     );
   }
 

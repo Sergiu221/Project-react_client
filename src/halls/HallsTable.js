@@ -8,6 +8,7 @@ class HallsTable extends Component {
     this.state = {
       halls: []
     };
+    this.renderEditable = this.renderEditable.bind(this);
   }
 
   componentDidMount() {
@@ -22,15 +23,38 @@ class HallsTable extends Component {
         });
       });
   }
+
+  renderEditable(cellInfo) {
+    return (
+      <div
+        style={{ backgroundColor: "#fafafa" }}
+        contentEditable
+        suppressContentEditableWarning
+        onBlur={e => {
+          const data = [...this.state.halls];
+          data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+          this.updateHall(cellInfo.original.id, cellInfo.original);
+          this.setState({ data });
+          console.log(cellInfo.original);
+        }}
+        dangerouslySetInnerHTML={{
+          __html: this.state.halls[cellInfo.index][cellInfo.column.id]
+        }}
+      />
+    );
+  }
+
   render() {
     const columns = [
       {
         Header: "Nume",
-        accessor: "name"
+        accessor: "name",
+        Cell: this.renderEditable
       },
       {
         Header: "Nr total de locuri",
-        accessor: "size"
+        accessor: "size",
+        Cell: this.renderEditable
       }
     ];
     return (
@@ -40,6 +64,22 @@ class HallsTable extends Component {
         noDataText={"Te rog asteapta"}
       />
     );
+  }
+
+  updateHall(id, data) {
+    return fetch("http://localhost:8080/halls/" + id, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        return res;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
 export default HallsTable;

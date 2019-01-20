@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ReactExport from "react-data-export";
-
+import { getHeaderTable, getHeaderTableFilter } from "./UtilHallsFunctions.js";
 class HallsTable extends Component {
   constructor(props) {
     super(props);
@@ -49,29 +49,24 @@ class HallsTable extends Component {
     const ExcelFile = ReactExport.ExcelFile;
     const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
     const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-    const columns = [
-      {
-        Header: "Nume",
-        accessor: "name",
-        Cell: this.renderEditable
-      },
-      {
-        Header: "Nr total de locuri",
-        accessor: "size",
-        Cell: this.renderEditable
-      }
-    ];
     return (
       <div>
         <ReactTable
-          columns={columns}
+          columns={getHeaderTable(this.renderEditable)}
           data={this.state.halls}
           noDataText={"Te rog, asteapta"}
         />
         <ExcelFile filename="Sali">
           <ExcelSheet data={this.state.halls} name="Sali">
-            <ExcelColumn label="Nume" value="name" />
-            <ExcelColumn label="Nr de locuri" value="size" />
+            {getHeaderTableFilter().map(function(ColumnHeader) {
+              return (
+                <ExcelColumn
+                  key={ColumnHeader.header}
+                  label={ColumnHeader.header}
+                  value={ColumnHeader.accessor}
+                />
+              );
+            })}
           </ExcelSheet>
         </ExcelFile>
       </div>

@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ReactExport from "react-data-export";
-
+import {
+  getHeaderTable,
+  getHeaderTableFilter
+} from "./UtilCandidatesFunctions.js";
 class CandidatesTable extends Component {
   constructor(props) {
     super(props);
@@ -49,43 +52,26 @@ class CandidatesTable extends Component {
     const ExcelFile = ReactExport.ExcelFile;
     const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
     const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-    const columns = [
-      {
-        Header: "CNP",
-        accessor: "cnp",
-        Cell: this.renderEditable
-      },
-      {
-        Header: "Nume",
-        accessor: "firstName",
-        Cell: this.renderEditable
-      },
-      {
-        Header: "Prenume",
-        accessor: "lastName",
-        Cell: this.renderEditable
-      },
-      {
-        Header: "Liceu",
-        accessor: "liceu",
-        Cell: this.renderEditable
-      }
-    ];
     return (
       <div>
         <ReactTable
-          columns={columns}
+          columns={getHeaderTable(this.renderEditable)}
           data={this.state.candidates}
           noDataText={"Te rog, asteapta"}
         />
         <ExcelFile filename="Candidati">
-                <ExcelSheet data={this.state.candidates} name="Candidates">
-                    <ExcelColumn label="CNP" value="cnp"/>
-                    <ExcelColumn label="Nume" value="firstName"/>
-                    <ExcelColumn label="Prenume" value="lastName"/>
-                    <ExcelColumn label="Liceu" value="liceu"/>
-                </ExcelSheet>
-            </ExcelFile>
+          <ExcelSheet data={this.state.candidates} name="Candidates">
+            {getHeaderTableFilter().map(function(ColumnHeader) {
+              return (
+                <ExcelColumn
+                  key={ColumnHeader.header}
+                  label={ColumnHeader.header}
+                  value={ColumnHeader.accessor}
+                />
+              );
+            })}
+          </ExcelSheet>
+        </ExcelFile>
       </div>
     );
   }

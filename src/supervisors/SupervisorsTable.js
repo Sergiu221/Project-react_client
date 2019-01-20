@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ReactExport from "react-data-export";
-
+import {
+  getHeaderTable,
+  getHeaderTableFilter
+} from "./UtilSupervisorsFunctions.js";
 class SupervisorsTable extends Component {
   constructor(props) {
     super(props);
@@ -49,29 +52,24 @@ class SupervisorsTable extends Component {
     const ExcelFile = ReactExport.ExcelFile;
     const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
     const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-    const columns = [
-      {
-        Header: "Nume",
-        accessor: "firstName",
-        Cell: this.renderEditable
-      },
-      {
-        Header: "Prenume",
-        accessor: "lastName",
-        Cell: this.renderEditable
-      }
-    ];
     return (
       <div>
         <ReactTable
-          columns={columns}
+          columns={getHeaderTable(this.renderEditable)}
           data={this.state.supervisors}
           noDataText={"Te rog, asteapta"}
         />
         <ExcelFile filename="Supraveghetori">
           <ExcelSheet data={this.state.supervisors} name="Supraveghetori">
-            <ExcelColumn label="Nume" value="firstName" />
-            <ExcelColumn label="Prenume" value="lastName" />
+            {getHeaderTableFilter().map(function(ColumnHeader) {
+              return (
+                <ExcelColumn
+                  key={ColumnHeader.header}
+                  label={ColumnHeader.header}
+                  value={ColumnHeader.accessor}
+                />
+              );
+            })}
           </ExcelSheet>
         </ExcelFile>
       </div>

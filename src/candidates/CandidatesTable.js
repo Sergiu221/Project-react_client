@@ -61,11 +61,11 @@ class CandidatesTable extends Component {
         />
         <ExcelFile filename="Candidati">
           <ExcelSheet data={this.state.candidates} name="Candidates">
-            {getHeaderTableFilter().map(function(ColumnHeader) {
+            {getHeaderTableFilter(this.renderEditable).map(function(ColumnHeader) {
               return (
                 <ExcelColumn
-                  key={ColumnHeader.header}
-                  label={ColumnHeader.header}
+                  key={ColumnHeader.Header}
+                  label={ColumnHeader.Header}
                   value={ColumnHeader.accessor}
                 />
               );

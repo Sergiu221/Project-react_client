@@ -61,11 +61,13 @@ class SupervisorsTable extends Component {
         />
         <ExcelFile filename="Supraveghetori">
           <ExcelSheet data={this.state.supervisors} name="Supraveghetori">
-            {getHeaderTableFilter().map(function(ColumnHeader) {
+            {getHeaderTableFilter(this.renderEditable).map(function(
+              ColumnHeader
+            ) {
               return (
                 <ExcelColumn
-                  key={ColumnHeader.header}
-                  label={ColumnHeader.header}
+                  key={ColumnHeader.Header}
+                  label={ColumnHeader.Header}
                   value={ColumnHeader.accessor}
                 />
               );

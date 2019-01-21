@@ -58,11 +58,13 @@ class HallsTable extends Component {
         />
         <ExcelFile filename="Sali">
           <ExcelSheet data={this.state.halls} name="Sali">
-            {getHeaderTableFilter().map(function(ColumnHeader) {
+            {getHeaderTableFilter(this.renderEditable).map(function(
+              ColumnHeader
+            ) {
               return (
                 <ExcelColumn
-                  key={ColumnHeader.header}
-                  label={ColumnHeader.header}
+                  key={ColumnHeader.Header}
+                  label={ColumnHeader.Header}
                   value={ColumnHeader.accessor}
                 />
               );

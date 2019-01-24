@@ -7,6 +7,12 @@ export function getHeaderTable(renderEditable) {
       exportHead: true
     },
     {
+      Header: "Nr de locuri utilizabile",
+      accessor: "utilizableSize",
+      Cell: renderEditable,
+      exportHead: true
+    },
+    {
       Header: "Nr total de locuri",
       accessor: "size",
       Cell: renderEditable,

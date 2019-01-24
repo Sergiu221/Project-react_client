@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ReactExport from "react-data-export";
+import HallForm from "./HallForm.js";
 import { getHeaderTable, getHeaderTableFilter } from "./UtilHallsFunctions.js";
 class HallsTable extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class HallsTable extends Component {
     const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
     return (
       <div>
+        <HallForm />
         <ReactTable
           columns={getHeaderTable(this.renderEditable)}
           data={this.state.halls}

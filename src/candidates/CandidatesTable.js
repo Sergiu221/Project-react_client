@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import ReactExport from "react-data-export";
+import CandidateForm from "./CandidateForm.js";
 import {
   getHeaderTable,
   getHeaderTableFilter
@@ -54,6 +55,7 @@ class CandidatesTable extends Component {
     const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
     return (
       <div>
+        <CandidateForm />
         <ReactTable
           columns={getHeaderTable(this.renderEditable)}
           data={this.state.candidates}
@@ -61,7 +63,9 @@ class CandidatesTable extends Component {
         />
         <ExcelFile filename="Candidati">
           <ExcelSheet data={this.state.candidates} name="Candidates">
-            {getHeaderTableFilter(this.renderEditable).map(function(ColumnHeader) {
+            {getHeaderTableFilter(this.renderEditable).map(function(
+              ColumnHeader
+            ) {
               return (
                 <ExcelColumn
                   key={ColumnHeader.Header}

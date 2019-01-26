@@ -19,8 +19,26 @@ export function getHeaderTable(renderEditable) {
       exportHead: true
     },
     {
+      Header: "Limba examen",
+      accessor: "examLanguage",
+      Cell: renderEditable,
+      exportHead: true
+    },
+    {
+      Header: "Materie examen",
+      accessor: "examField",
+      Cell: renderEditable,
+      exportHead: true
+    },
+    {
+      Header: "Tip examen",
+      accessor: "examType",
+      Cell: renderEditable,
+      exportHead: true
+    },
+    {
       Header: "Liceu",
-      accessor: "liceu",
+      accessor: "highSchool",
       Cell: renderEditable,
       exportHead: false
     }

@@ -2,6 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "version": "1.0.0",
+  "engines": {
+     "node": "8.11.3"
+  }
   "dependencies": {
     "auto-format": "^1.1.1",
     "axios": "^0.18.0",

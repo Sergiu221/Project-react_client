@@ -4,7 +4,7 @@ import React, {
 from 'react';
 import ReactDOM from 'react-dom';
 import './Table.css';
-import FileService from './../services/FileService.js';
+import FileService from './../Services/FileService.js';
 
 export interface ITableProps {
   name: string;
@@ -17,7 +17,7 @@ class Table extends Component implements ITableProps {
     super(props);
     console.log(this.props);
     this.state = ({
-		filename: "",	   
+		filename: "",
 	    id_filename: "id_filname_" + this.props.name
     });
     this.fileService = new FileService();

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Allocation.css';
-import FileService from './../services/FileService.js';
+import FileService from './../Services/FileService.js';
 
 export interface ITableProps {
   name: string;

@@ -24,8 +24,8 @@ class NavigationBar extends Component {
                     <NavbarCollapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link href="/candidates">Candidate</Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link href="/supervisors">Supervizori</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/candidates">Candidati</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/supervisors">Supraveghetori</Nav.Link></Nav.Item>
                             <Nav.Item> <Nav.Link href="/halls">Sali</Nav.Link></Nav.Item>
                         </Nav>
                     </NavbarCollapse>

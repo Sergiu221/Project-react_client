@@ -56,10 +56,31 @@ class HallsTable extends Component {
 
 }
 
+function onBeforeSaveCell(row, cellName, cellValue) {
+    console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
+    row[cellName] = cellValue;
+    return fetch("http://localhost:8080/halls/" + row.id, {
+        method: "PUT",
+        body: JSON.stringify(row),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => {
+            return res;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+}
+
 const cellEditProp = {
-    mode: 'click'
+    mode: 'click',
+    blurToSave: true,
+    beforeSaveCell: onBeforeSaveCell
 };
-// If you want to enable deleteRow, you must enable row selection also.
+
 const selectRowProp = {
     mode: 'checkbox'
 };

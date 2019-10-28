@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import "./Home.css"
-import ChartHome from "../ChartHome/ChartHome";
+import ChartHome from "./ChartHome/ChartHome";
 
 class Home extends Component {
 

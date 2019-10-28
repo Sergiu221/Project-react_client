@@ -2,14 +2,14 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React, {Component} from 'react';
 import './App.css';
 
-import CandidatesTable from "../Candidates/CandidatesTable";
-import SupervisorsTable from "../Supervisors/SupervisorsTable";
-import HallsTable from "../Halls/HallsTable";
+import Candidates from "../Candidates";
+import Supervisors from "../Supervisors/Supervisors";
+import HallsTable from "../Halls";
 import Home from "../Home";
 import Nothing from "../Nothing";
-import Layout from "../Layout/Layout";
-import NavigationBar from "../NavigationBar/NavigationBar";
-import Jumbotron from "../Jumbotron/Jumbotron";
+import Layout from "./Layout";
+import NavigationBar from "./NavigationBar";
+import Jumbotron from "./Jumbotron";
 
 class App extends Component {
 
@@ -22,8 +22,8 @@ class App extends Component {
                     <Router>
                         <Switch>
                             <Route exact path="/" component={Home}/>
-                            <Route path="/candidates" component={CandidatesTable}/>
-                            <Route path="/supervisors" component={SupervisorsTable}/>
+                            <Route path="/candidates" component={Candidates}/>
+                            <Route path="/supervisors" component={Supervisors}/>
                             <Route path="/halls" component={HallsTable}/>
                             <Route component={Nothing}/>
                         </Switch>

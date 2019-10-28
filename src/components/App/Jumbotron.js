@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {Jumbotron as Jumbo, Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import crowd from '../../assets/crowd.jpg';
@@ -24,20 +24,18 @@ const Styles = styled.div`
   }
 `;
 
-class Jumbotron extends Component {
+const Jumbotron = () => {
 
-    render() {
-        return (
-            <Styles>
-                <Jumbo fluid className="jumbo">
-                    <div className="overlay"></div>
-                    <Container>
-                        <h1>Examenul de admitere!</h1>
-                    </Container>
-                </Jumbo>
-            </Styles>
-        );
-    }
+    return (
+        <Styles>
+            <Jumbo fluid className="jumbo">
+                <div className="overlay"></div>
+                <Container>
+                    <h1>Examenul de admitere!</h1>
+                </Container>
+            </Jumbo>
+        </Styles>
+    );
 }
 
 export default Jumbotron;

@@ -20,7 +20,7 @@ class Candidates extends Component {
     }
 
     componentDidMount() {
-        const url = "http://localhost:8080/candidates";
+        const url = "https://api-licenta.herokuapp.com/candidates";
         fetch(url, {
             method: "GET"
         })
@@ -59,7 +59,7 @@ class Candidates extends Component {
 function onBeforeSaveCell(row, cellName, cellValue) {
     console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
     row[cellName] = cellValue;
-    return fetch("http://localhost:8080/candidates/" + row.id, {
+    return fetch("https://api-licenta.herokuapp.com/candidates/" + row.id, {
         method: "PUT",
         body: JSON.stringify(row),
         headers: {

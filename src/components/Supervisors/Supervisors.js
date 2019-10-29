@@ -19,7 +19,7 @@ class Supervisors extends Component {
     }
 
     componentDidMount() {
-        const url = "http://localhost:8080/supervisors";
+        const url = "https://api-licenta.herokuapp.com/supervisors";
         fetch(url, {
             method: "GET"
         })
@@ -57,7 +57,7 @@ class Supervisors extends Component {
 function onBeforeSaveCell(row, cellName, cellValue) {
     console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
     row[cellName] = cellValue;
-    return fetch("http://localhost:8080/supervisors/" + row.id, {
+    return fetch("https://api-licenta.herokuapp.com/supervisors/" + row.id, {
         method: "PUT",
         body: JSON.stringify(row),
         headers: {

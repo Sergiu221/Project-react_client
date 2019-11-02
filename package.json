@@ -29,10 +29,9 @@
     "styled-components": "^4.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-env start",
+    "build": "react-app-env build",
+    "test": "react-app-env test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,8 +41,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "@types/file-saver": "^2.0.1"
-  }
+  ]
 }

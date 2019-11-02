@@ -19,7 +19,7 @@ class HallsTable extends Component {
     }
 
     componentDidMount() {
-        const url = "https://api-licenta.herokuapp.com/halls";
+        const url = api + "/halls";
         fetch(url, {
             method: "GET"
         })
@@ -59,7 +59,7 @@ class HallsTable extends Component {
 function onBeforeSaveCell(row, cellName, cellValue) {
     console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
     row[cellName] = cellValue;
-    return fetch("https://api-licenta.herokuapp.com/halls/" + row.id, {
+    return fetch(api + "/halls/" + row.id, {
         method: "PUT",
         body: JSON.stringify(row),
         headers: {
@@ -92,4 +92,7 @@ const options = {
     saveText: 'my_save',
     closeText: 'my_close'
 };
+
+const api = process.env.REACT_APP_API_HOST;
+
 export default HallsTable;

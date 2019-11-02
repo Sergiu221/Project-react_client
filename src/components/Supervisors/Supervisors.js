@@ -19,7 +19,7 @@ class Supervisors extends Component {
     }
 
     componentDidMount() {
-        const url = "https://api-licenta.herokuapp.com/supervisors";
+        const url = api + "/supervisors";
         fetch(url, {
             method: "GET"
         })
@@ -57,7 +57,7 @@ class Supervisors extends Component {
 function onBeforeSaveCell(row, cellName, cellValue) {
     console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
     row[cellName] = cellValue;
-    return fetch("https://api-licenta.herokuapp.com/supervisors/" + row.id, {
+    return fetch(api + "/supervisors/" + row.id, {
         method: "PUT",
         body: JSON.stringify(row),
         headers: {
@@ -71,6 +71,23 @@ function onBeforeSaveCell(row, cellName, cellValue) {
             console.log(err);
         });
 
+}
+
+function onAfterInsertRow(row) {
+    console.log("Save row[" + row + "]");
+    return fetch(api + "/supervisors/", {
+        method: "POST",
+        body: JSON.stringify(row),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => {
+            return res;
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 const cellEditProp = {
@@ -88,6 +105,10 @@ const options = {
     insertText: 'my_insert',
     deleteText: 'my_delete',
     saveText: 'my_save',
-    closeText: 'my_close'
+    closeText: 'my_close',
+    afterInsertRow: onAfterInsertRow
 }
+
+const api = process.env.REACT_APP_API_HOST;
+
 export default Supervisors;

@@ -20,7 +20,8 @@ class Candidates extends Component {
     }
 
     componentDidMount() {
-        const url = "https://api-licenta.herokuapp.com/candidates";
+        const url = api + "/candidates";
+        console.log(url);
         fetch(url, {
             method: "GET"
         })
@@ -59,7 +60,7 @@ class Candidates extends Component {
 function onBeforeSaveCell(row, cellName, cellValue) {
     console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
     row[cellName] = cellValue;
-    return fetch("https://api-licenta.herokuapp.com/candidates/" + row.id, {
+    return fetch(api + "/candidates/" + row.id, {
         method: "PUT",
         body: JSON.stringify(row),
         headers: {
@@ -93,5 +94,6 @@ const options = {
     closeText: 'my_close'
 };
 
+const api = process.env.REACT_APP_API_HOST;
 
 export default Candidates;

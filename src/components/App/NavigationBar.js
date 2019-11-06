@@ -20,13 +20,15 @@ const NavigationBar = () => {
     return (
         <Styles>
             <Navbar expand="lg">
-                <NavbarCollapse id="basic-navbar-nav"/>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/candidates">Candidati</Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/supervisors">Supraveghetori</Nav.Link></Nav.Item>
                         <Nav.Item> <Nav.Link href="/halls">Sali</Nav.Link></Nav.Item>
                     </Nav>
+                </Navbar.Collapse>
             </Navbar>
         </Styles>
     )

@@ -1,14 +1,7 @@
 import React, {Component} from "react";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
-import styled from "styled-components";
-
-const Styles = styled.div`
-.btn {
-    text-transform: uppercase;
-    letter-spacing: 2px; 
-    }`
-;
+import '../table-button.css';
 
 class HallsTable extends Component {
     constructor(props) {
@@ -34,23 +27,22 @@ class HallsTable extends Component {
     render() {
         console.log(this.state.halls);
         return (
-            <Styles>
-                <BootstrapTable data={this.state.halls}
-                                options={options}
-                                insertRow={true}
-                                deleteRow={true}
-                                search={true}
-                                multiColumnSearch={true}
-                                exportCSV={true}
-                                selectRow={selectRowProp}
-                                cellEdit={cellEditProp}>
-                    <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='name' dataSort={true}>Nume</TableHeaderColumn>
-                    <TableHeaderColumn dataField='utilizableSize' dataSort={true}>Nr Loc. Utilizate</TableHeaderColumn>
-                    <TableHeaderColumn dataField='size' dataSort={true}>Nr Locuri</TableHeaderColumn>
-                    <TableHeaderColumn>Candidati</TableHeaderColumn>
-                </BootstrapTable>
-            </Styles>
+            <BootstrapTable data={this.state.halls}
+                            options={options}
+                            insertRow={true}
+                            deleteRow={true}
+                            search={true}
+                            multiColumnSearch={true}
+                            exportCSV={true}
+                            selectRow={selectRowProp}
+                            cellEdit={cellEditProp}>
+                <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
+                <TableHeaderColumn dataField='name' dataSort={true}>Nume</TableHeaderColumn>
+                <TableHeaderColumn dataField='utilizableSize' dataSort={true}>Nr Loc. Utilizate</TableHeaderColumn>
+                <TableHeaderColumn dataField='size' dataSort={true}>Nr Locuri</TableHeaderColumn>
+                <TableHeaderColumn>Candidati</TableHeaderColumn>
+            </BootstrapTable>
+
         );
     }
 

@@ -1,14 +1,8 @@
 import React, {Component} from "react";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
-import styled from "styled-components";
+import '../table-button.css';
 
-const Styles = styled.div`
-.btn {
-    text-transform: uppercase;
-    letter-spacing: 2px; 
-    }`
-;
 
 class Supervisors extends Component {
     constructor(props) {
@@ -34,22 +28,21 @@ class Supervisors extends Component {
     render() {
         console.log(this.state.supervisors);
         return (
-            <Styles>
-                <BootstrapTable data={this.state.supervisors}
-                                options={options}
-                                insertRow={true}
-                                deleteRow={true}
-                                search={true}
-                                multiColumnSearch={true}
-                                exportCSV={true}
-                                selectRow={selectRowProp}
-                                cellEdit={cellEditProp}>
-                    <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='firstName' dataSort={true}>Nume</TableHeaderColumn>
-                    <TableHeaderColumn dataField='middleName' dataSort={true}>Nume</TableHeaderColumn>
-                    <TableHeaderColumn>Sala</TableHeaderColumn>
-                </BootstrapTable>
-            </Styles>
+
+            <BootstrapTable data={this.state.supervisors}
+                            options={options}
+                            insertRow={true}
+                            deleteRow={true}
+                            search={true}
+                            multiColumnSearch={true}
+                            exportCSV={true}
+                            selectRow={selectRowProp}
+                            cellEdit={cellEditProp}>
+                <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
+                <TableHeaderColumn dataField='firstName' dataSort={true}>Nume</TableHeaderColumn>
+                <TableHeaderColumn dataField='middleName' dataSort={true}>Nume</TableHeaderColumn>
+                <TableHeaderColumn>Sala</TableHeaderColumn>
+            </BootstrapTable>
         );
     }
 }

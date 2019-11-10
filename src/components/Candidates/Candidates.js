@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from "react";
-import tableOptions from "../table-options";
 import API from "../utils/API";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import '../table-button.css';
 
 
-export default function Candidates(props) {
+export default function Candidates() {
     const [candidates, setCandidates] = useState([]);
-    const [option] = useState(tableOptions);
 
     useEffect(() => {
         (async () => {
@@ -28,6 +26,35 @@ export default function Candidates(props) {
         });
     }
 
+    function onAfterInsertRow(row) {
+        console.log(row);
+        API.post("/candidates/", row).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    function onAfterDeleteRow(rowKeys) {
+
+        console.log("Delete candidate with id:" + rowKeys);
+        API.delete("/candidates/" + rowKeys).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    const option = {
+        exportCSVText: 'descarca',
+        insertText: 'inseriaza',
+        deleteText: 'sterge',
+        saveText: 'salveaza',
+        closeText: 'inchide',
+        afterInsertRow: onAfterInsertRow,
+        afterDeleteRow: onAfterDeleteRow
+    };
+
     const cellEditProp = {
         mode: 'click',
         blurToSave: true,
@@ -37,9 +64,8 @@ export default function Candidates(props) {
     const selectRowProp = {
         mode: 'checkbox'
     };
-
     return (
-        <BootstrapTable data={candidates} //sa vina de pe props....
+        <BootstrapTable data={candidates}
                         options={option}
                         insertRow={true}
                         deleteRow={true}
@@ -48,8 +74,7 @@ export default function Candidates(props) {
                         exportCSV={true}
                         selectRow={selectRowProp}
                         cellEdit={cellEditProp}>
-            <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='cnp' dataSort={true}>CNP</TableHeaderColumn>
+            <TableHeaderColumn dataField='cnp' isKey dataSort={true}>CNP</TableHeaderColumn>
             <TableHeaderColumn dataField='firstName'>Prenume</TableHeaderColumn>
             <TableHeaderColumn dataField='lastName' dataSort={true}>Nume</TableHeaderColumn>
             <TableHeaderColumn dataField='highSchool'>Liceu</TableHeaderColumn>

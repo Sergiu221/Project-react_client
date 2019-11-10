@@ -1,90 +1,88 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
+import API from "../utils/API";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import '../table-button.css';
 
-class HallsTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            halls: []
-        };
-    }
+export default function HallsTable() {
+    const [halls, setHalls] = useState([]);
 
-    componentDidMount() {
-        const url = api + "/halls";
-        fetch(url, {
-            method: "GET"
-        })
-            .then(response => response.json())
-            .then(halls => {
-                this.setState({
-                    halls: halls
-                });
-            });
-    }
+    useEffect(() => {
+        (async () => {
+            const result = await API.get('/halls');
+            console.log(result.data);
+            setHalls(result.data);
+        })();
+    }, []);
 
-    render() {
-        console.log(this.state.halls);
-        return (
-            <BootstrapTable data={this.state.halls}
-                            options={options}
-                            insertRow={true}
-                            deleteRow={true}
-                            search={true}
-                            multiColumnSearch={true}
-                            exportCSV={true}
-                            selectRow={selectRowProp}
-                            cellEdit={cellEditProp}>
-                <TableHeaderColumn dataField='id' isKey hidden searchable={false}>ID</TableHeaderColumn>
-                <TableHeaderColumn dataField='name' dataSort={true}>Nume</TableHeaderColumn>
-                <TableHeaderColumn dataField='utilizableSize' dataSort={true}>Nr Loc. Utilizate</TableHeaderColumn>
-                <TableHeaderColumn dataField='size' dataSort={true}>Nr Locuri</TableHeaderColumn>
-                <TableHeaderColumn>Candidati</TableHeaderColumn>
-            </BootstrapTable>
-
-        );
-    }
-
-}
-
-function onBeforeSaveCell(row, cellName, cellValue) {
-    console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
-    row[cellName] = cellValue;
-    return fetch(api + "/halls/" + row.id, {
-        method: "PUT",
-        body: JSON.stringify(row),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => {
-            return res;
-        })
-        .catch(err => {
-            console.log(err);
+    function onBeforeSaveCell(row, cellName, cellValue) {
+        console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
+        row[cellName] = cellValue;
+        API.put("/halls/" + row.id, row).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
         });
+    }
 
+    function onAfterInsertRow(row) {
+        console.log("Add default id with value -1");
+        row.id = "-1";
+        console.log(row);
+        API.post("/halls/", row).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    function onAfterDeleteRow(rowKeys) {
+
+        console.log("Delete hall with id:" + rowKeys);
+        API.delete("/halls/" + rowKeys).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    const options = {
+        exportCSVText: 'descarca',
+        insertText: 'inseriaza',
+        deleteText: 'sterge',
+        saveText: 'salveaza',
+        closeText: 'inchide',
+        afterInsertRow: onAfterInsertRow,
+        afterDeleteRow: onAfterDeleteRow
+    };
+
+    const cellEditProp = {
+        mode: 'click',
+        blurToSave: true,
+        beforeSaveCell: onBeforeSaveCell
+    };
+
+    const selectRowProp = {
+        mode: 'checkbox'
+    };
+
+    return (
+        <BootstrapTable data={halls}
+                        options={options}
+                        insertRow={true}
+                        deleteRow={true}
+                        search={true}
+                        multiColumnSearch={true}
+                        exportCSV={true}
+                        selectRow={selectRowProp}
+                        cellEdit={cellEditProp}>
+            <TableHeaderColumn dataField='id' isKey hidden hiddenOnInsert searchable={false}
+                               autoValue={true}>ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='name' dataSort={true}>Nume</TableHeaderColumn>
+            <TableHeaderColumn dataField='utilizableSize' dataSort={true}>Nr Loc. Utilizate</TableHeaderColumn>
+            <TableHeaderColumn dataField='size' dataSort={true}>Nr Locuri</TableHeaderColumn>
+            <TableHeaderColumn>Candidati</TableHeaderColumn>
+        </BootstrapTable>
+
+    );
 }
-
-const cellEditProp = {
-    mode: 'click',
-    blurToSave: true,
-    beforeSaveCell: onBeforeSaveCell
-};
-
-const selectRowProp = {
-    mode: 'checkbox'
-};
-
-const options = {
-    exportCSVText: 'my_export',
-    insertText: 'my_insert',
-    deleteText: 'my_delete',
-    saveText: 'my_save',
-    closeText: 'my_close'
-};
-
-const api = process.env.REACT_APP_API_HOST;
-
-export default HallsTable;

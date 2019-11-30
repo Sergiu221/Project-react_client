@@ -65,7 +65,7 @@ export default function Candidates() {
         return (
             <ExportCSVButton
                 btnText='CustomExportText'
-                btnContextual='btn-danger'
+                btnContextual='btn-success'
                 className='my-custom-class'
                 btnGlyphicon='glyphicon-edit'
                 onClick={e => handleExportCSVButtonClick()}/>

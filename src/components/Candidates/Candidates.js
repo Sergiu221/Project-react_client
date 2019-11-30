@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import API from "../utils/API";
-import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import axios from "axios";
+import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import '../table-button.css';
 
@@ -45,8 +46,34 @@ export default function Candidates() {
         });
     }
 
+    function handleExportCSVButtonClick() {
+        axios({
+            url: 'http://localhost:8080/report',
+            method: 'GET',
+            responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'candidati.pdf');
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
+    function createCustomExportCSVButton() {
+        return (
+            <ExportCSVButton
+                btnText='CustomExportText'
+                btnContextual='btn-danger'
+                className='my-custom-class'
+                btnGlyphicon='glyphicon-edit'
+                onClick={e => handleExportCSVButtonClick()}/>
+        );
+    }
+
     const option = {
-        exportCSVText: 'descarca',
+        exportCSVBtn: createCustomExportCSVButton,
         insertText: 'inseriaza',
         deleteText: 'sterge',
         saveText: 'salveaza',

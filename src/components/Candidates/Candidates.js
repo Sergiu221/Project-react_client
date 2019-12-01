@@ -63,7 +63,7 @@ export default function Candidates() {
     function createCustomExportCSVButton() {
         return (
             <ExportCSVButton
-                btnText='CustomExportText'
+                btnText='Descarca'
                 btnContextual='btn-success'
                 className='my-custom-class'
                 btnGlyphicon='glyphicon-edit'

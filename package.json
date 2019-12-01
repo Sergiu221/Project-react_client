@@ -30,10 +30,10 @@
     "styled-components": "^4.4.0"
   },
   "scripts": {
-    "start": "react-app-env start",
-    "build": "react-app-env build",
-    "test": "react-app-env test",
-    "heroku-postbuild": "react-app-env build"
+    "start": "REACT_APP_STAGE=production react-scripts start",
+    "start-local": "REACT_APP_STAGE=local react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"

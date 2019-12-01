@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default axios.create({
     baseURL: getBaseURL(),
-    responseType: 'json'
+    responseType: 'blob'
 
 });
 

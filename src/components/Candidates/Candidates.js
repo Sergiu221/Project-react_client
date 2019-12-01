@@ -3,6 +3,7 @@ import API from "../utils/API";
 import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import '../table-button.css';
+import API_BLOB from "../utils/API_BLOB";
 
 
 export default function Candidates() {
@@ -46,12 +47,11 @@ export default function Candidates() {
     }
 
     function handleExportCSVButtonClick() {
-        API.responseType = 'blob';
-
-        API.get(
-            '/report'
+        API_BLOB.get("/report"
         ).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
+            console.log(response.data);
+            console.log(response);
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', 'candidati.pdf');

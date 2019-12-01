@@ -32,7 +32,8 @@
   "scripts": {
     "start": "react-app-env start",
     "build": "react-app-env build",
-    "test": "react-app-env test"
+    "test": "react-app-env test",
+    "heroku-postbuild": "react-app-env build"
   },
   "eslintConfig": {
     "extends": "react-app"

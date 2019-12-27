@@ -10,6 +10,7 @@ import Nothing from "../Nothing";
 import Layout from "./Layout";
 import NavigationBar from "./NavigationBar";
 import Jumbotron from "./Jumbotron";
+import IndividualHall from "../Hall";
 
 class App extends Component {
 
@@ -24,7 +25,8 @@ class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route path="/candidates" component={Candidates}/>
                             <Route path="/supervisors" component={Supervisors}/>
-                            <Route path="/halls" component={HallsTable}/>
+                            <Route path="/halls" exact={true} component={HallsTable}/>
+                            <Route path="/halls/:id" component={IndividualHall}/>
                             <Route component={Nothing}/>
                         </Switch>
                     </Router>

@@ -1,6 +1,5 @@
 import React from "react";
-import {Navbar, Nav} from "react-bootstrap";
-import NavbarCollapse from "react-bootstrap/NavbarCollapse";
+import {Nav, Navbar} from "react-bootstrap";
 import styled from 'styled-components';
 
 const Styles = styled.div`

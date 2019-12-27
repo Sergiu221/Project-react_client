@@ -12,6 +12,7 @@ export default function HallsTable() {
     useEffect(() => {
         (async () => {
             const result = await API.get(baseUrl);
+            console.log(baseUrl);
             console.log(result.data);
             setHalls(result.data);
         })();

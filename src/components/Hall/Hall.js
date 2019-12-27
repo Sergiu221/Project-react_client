@@ -11,7 +11,7 @@ export default function IndividualHall(props) {
     useEffect(() => {
         (async () => {
             const result = await API.get('/halls/' + id);
-
+            console.log(result.data);
             setCandidates(result.data.listCandidates);
         })();
         }, [id]);

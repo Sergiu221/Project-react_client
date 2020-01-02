@@ -69,17 +69,16 @@ export default function Table(props) {
                 btnText='Descarca'
                 btnContextual='btn-success'
                 className='my-custom-class'
-                btnGlyphicon='glyphicon-edit'
+                btnGlyphicon='glyphicon-export'
                 onClick={e => handleExportCSVButtonClick()}/>
         );
     }
 
-    const option = {
+    const options = {
         exportCSVBtn: createCustomExportCSVButton,
-        insertText: 'inseriaza',
-        deleteText: 'sterge',
-        saveText: 'salveaza',
-        closeText: 'inchide',
+        insertText: 'Inseriaza',
+        deleteText: 'Sterge',
+        // saveText: 'my_save',
         afterInsertRow: onAfterInsertRow,
         afterDeleteRow: onAfterDeleteRow
     };
@@ -103,7 +102,7 @@ export default function Table(props) {
     return (
         <BootstrapTable data={data}
                         keyField={keyField}
-                        options={option}
+                        options={options}
                         insertRow={true}
                         deleteRow={true}
                         search={true}

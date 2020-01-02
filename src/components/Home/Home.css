@@ -1,11 +1,4 @@
-.leftdiv
-{
-    float: left;
-    width: 50%;
+#myButton {
+    margin: auto;
 }
 
-.rightdiv
-{
-    float: left;
-    width: 40%;
-}

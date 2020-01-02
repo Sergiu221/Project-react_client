@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import API from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
-import '../table-button.css';
 import Table from "../Table";
 
 export default function Supervisors() {

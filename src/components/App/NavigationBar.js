@@ -33,9 +33,7 @@ const NavigationBar = () => {
                 </Navbar.Collapse>
             </Navbar>
         </Styles>
-    )
-        ;
-
+    );
 }
 
 export default NavigationBar;

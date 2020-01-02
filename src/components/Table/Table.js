@@ -69,7 +69,7 @@ export default function Table(props) {
                 btnText='Descarca'
                 btnContextual='btn-success'
                 className='my-custom-class'
-                btnGlyphicon='glyphicon-export'
+                btnGlyphicon='glyphicon-export fa-download'
                 onClick={e => handleExportCSVButtonClick()}/>
         );
     }

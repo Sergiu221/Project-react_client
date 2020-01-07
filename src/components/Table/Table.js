@@ -1,9 +1,17 @@
 import API from "../utils/API";
-import API_BLOB from "../utils/API_BLOB";
 import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
-import React from "react";
+import React, {useState} from "react";
+import {useForm} from "react-hook-form"
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export default function Table(props) {
+    const {register, handleSubmit} = useForm();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     let baseUrl = props.baseUrl;
     let data = props.data;
@@ -21,10 +29,7 @@ export default function Table(props) {
     }
 
     function isCandidates() {
-        if (baseUrl === "candidates") {
-            return true;
-        }
-        return false;
+        return baseUrl === "candidates";
     }
 
     function onAfterInsertRow(row) {
@@ -50,17 +55,8 @@ export default function Table(props) {
     }
 
     function handleExportCSVButtonClick() {
-        API_BLOB.get("/report"
-        ).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            console.log(response.data);
-            console.log(response);
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", baseUrl + ".pdf");
-            document.body.appendChild(link);
-            link.click();
-        });
+        console.log("descarca...");
+        handleShow();
     }
 
     function createCustomExportCSVButton() {
@@ -70,7 +66,7 @@ export default function Table(props) {
                 btnContextual='btn-success'
                 className='my-custom-class'
                 btnGlyphicon='glyphicon-export fa-download'
-                onClick={e => handleExportCSVButtonClick()}/>
+                onClick={e => handleExportCSVButtonClick(e)}/>
         );
     }
 
@@ -99,18 +95,60 @@ export default function Table(props) {
         </TableHeaderColumn>
     ));
 
+    function filterId() {
+        let columns = [];
+        columnData.forEach(function (column) {
+            if (column.field !== "id") {
+                columns.push(column);
+            }
+        });
+        return columns;
+    }
+
+    const tableHeaderColumnsFormCheck = filterId().map((column, i) => (
+        <Form.Check type="checkbox" name={column.field} id={i} label={column.text} key={column.field}
+                    ref={register}/>
+    ));
+
+    function handleDownload(data) {
+        console.log(data);
+        handleClose();
+    }
+
     return (
-        <BootstrapTable data={data}
-                        keyField={keyField}
-                        options={options}
-                        insertRow={true}
-                        deleteRow={true}
-                        search={true}
-                        multiColumnSearch={true}
-                        exportCSV={true}
-                        selectRow={selectRowProp}
-                        cellEdit={cellEditProp}>
-            {tableHeaderColumns}
-        </BootstrapTable>
-    );
+        <React.Fragment>
+            <BootstrapTable data={data}
+                            keyField={keyField}
+                            options={options}
+                            insertRow={true}
+                            deleteRow={true}
+                            search={true}
+                            multiColumnSearch={true}
+                            exportCSV={true}
+                            selectRow={selectRowProp}
+                            cellEdit={cellEditProp}>
+                {tableHeaderColumns}
+            </BootstrapTable>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Alege coloanele pentru raport</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="formBasicCheckbox">
+                            {tableHeaderColumnsFormCheck}
+                        </Form.Group>
+
+                        <Button variant="secondary" onClick={handleClose}>
+                            Inchide
+                        </Button>
+                        <Button variant="primary" type="submit" onClick={handleSubmit(handleDownload)}>
+                            Descarca
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </React.Fragment>
+    )
+        ;
 }

@@ -4,8 +4,6 @@ import "./Home.css"
 import ChartHome from "./ChartHome/ChartHome";
 import Card from "react-bootstrap/Card";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import Button from "react-bootstrap/Button";
-import API from "../utils/API";
 import ButtonDistribution from "./ButtonDistribution";
 import ButtonReset from "./ButtonReset";
 

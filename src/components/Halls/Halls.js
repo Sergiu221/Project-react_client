@@ -25,8 +25,8 @@ export default function HallsTable() {
 
     const buildColumnData = [
         {field: "id", text: "id", extra: {isKey: true, hidden: true, hiddenOnInsert: true}},
-        {field: "name", text: "Nume"},
-        {field: "utilizableSize", text: "Nr Loc. Utilizate"},
+        {field: "name", dataType: "java.lang.String", text: "Nume"},
+        {field: "utilizableSize", dataType: "java.lang.Integer", text: "Nr Loc. Utilizate"},
         {field: "id", text: "Candidati", extra: {dataFormat: buttonInsideHall, export: false}},
     ];
 

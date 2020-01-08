@@ -15,10 +15,10 @@ export default function Candidates() {
     }, []);
 
     const buildColumnData = [
-        {field: "cnp", text: "CNP", extra: {isKey: true}},
-        {field: "firstName", text: "Prenume"},
-        {field: "lastName", text: "Nume"},
-        {field: "highSchool", text: "Liceu"}
+        {field: "cnp", text: "CNP", dataType: "java.lang.Long", extra: {isKey: true}},
+        {field: "firstName", dataType: "java.lang.String", text: "Prenume"},
+        {field: "lastName", dataType: "java.lang.String", text: "Nume"},
+        {field: "highSchool", dataType: "java.lang.String", text: "Liceu"}
     ];
 
     return (

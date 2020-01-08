@@ -14,14 +14,14 @@ export default function IndividualHall(props) {
             console.log(result.data);
             setCandidates(result.data.listCandidates);
         })();
-        }, [id]);
+    }, [id]);
 
-    const buildColumnData=[
-            {field: "cnp", text: "CNP"},
-            {field: "firstName", text: "Prenume"},
-            {field: "lastName", text: "Nume"},
-            {field: "highSchool", text: "Liceu"}
-        ];
+    const buildColumnData = [
+        {field: "cnp", text: "CNP", dataType: "java.lang.Long"},
+        {field: "firstName", dataType: "java.lang.String", text: "Prenume"},
+        {field: "lastName", dataType: "java.lang.String", text: "Nume"},
+        {field: "highSchool", dataType: "java.lang.String", text: "Liceu"}
+    ];
 
 
     return (

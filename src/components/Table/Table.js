@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import API_BLOB from "../utils/API_BLOB";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -55,7 +56,6 @@ export default function Table(props) {
     }
 
     function handleExportCSVButtonClick() {
-        console.log("descarca...");
         handleShow();
     }
 
@@ -111,7 +111,49 @@ export default function Table(props) {
     ));
 
     function handleDownload(data) {
-        console.log(data);
+
+        let result = Object.keys(data).map(function (key) {
+
+            return [(key), data[key]];
+        });
+
+        console.log(result);
+        let i = 0;
+        columnData.find((element => {
+            try {
+                if (element.field != "id") {
+                    if (element.field === result[i][0]) {
+                        if (result[i][1] === true) {
+                            element.isReport = true;
+                        } else {
+                            element.isReport = false;
+                        }
+                    }
+                    i++;
+                } else {
+                    element.isReport = false;
+                }
+            } catch (e) {
+                console.log(e);
+                element.isReport = false;
+            }
+        }));
+
+        const report = {
+            sourceList: props.data,
+            columnsReport: columnData
+        };
+
+        console.log(props.data);
+        console.log(columnData);
+        API_BLOB.post("reports" + "/" + baseUrl, report).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", baseUrl + ".pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
         handleClose();
     }
 

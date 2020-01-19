@@ -14,7 +14,7 @@ export default function Supervisors() {
     }, []);
 
     const buildColumnData = [
-        {field: "id", text: "id", extra: {isKey: true, hidden: true, hiddenOnInsert: true}},
+        {field: "id", text: "id", extra: {isKey: true, hidden: true, hiddenOnInsert: true, autoValue: true}},
         {field: "firstName", text: "Prenume"},
         {field: "lastName", text: "Nume"},
         {field: "", text: "Sala"}

@@ -14,7 +14,7 @@ export default function Home() {
             <Row>
                 <Col>
                     <Card bg="white" text="dark" style={{width: '15rem'}}>
-                        <Card.Header>Candidati</Card.Header>
+                        <Card.Header className="d-flex justify-content-center">Candidati</Card.Header>
                         <Card.Body>
                             <Card.Title>Inscrisi</Card.Title>
                             <Card.Text> 1500 </Card.Text>
@@ -24,7 +24,7 @@ export default function Home() {
                 </Col>
                 <Col>
                     <Card bg="white" text="dark" style={{width: '15rem'}}>
-                        <Card.Header>Supraveghetori</Card.Header>
+                        <Card.Header className="d-flex justify-content-center">Supraveghetori</Card.Header>
                         <Card.Body>
                             <Card.Title>Inscrisi</Card.Title>
                             <Card.Text>30</Card.Text>
@@ -34,7 +34,7 @@ export default function Home() {
                 </Col>
                 <Col>
                     <Card bg="white" text="dark" style={{width: '15rem'}}>
-                        <Card.Header>Sali</Card.Header>
+                        <Card.Header className="d-flex justify-content-center">Sali</Card.Header>
                         <Card.Body>
                             <Card.Title>Disponibile</Card.Title>
                             <Card.Text> 30 </Card.Text>

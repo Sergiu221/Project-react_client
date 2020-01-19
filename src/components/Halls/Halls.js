@@ -24,10 +24,20 @@ export default function HallsTable() {
     );
 
     const buildColumnData = [
-        {field: "id", text: "id", extra: {isKey: true, hidden: true, hiddenOnInsert: true}},
+        {
+            field: "id",
+            text: "id",
+            dataType: "java.lang.Integer",
+            extra: {isKey: true, hidden: true, hiddenOnInsert: true, autoValue: true}
+        },
         {field: "name", dataType: "java.lang.String", text: "Nume"},
+        {field: "size", dataType: "java.lang.Integer", text: "Nr Maxim de locuri"},
         {field: "utilizableSize", dataType: "java.lang.Integer", text: "Nr Loc. Utilizate"},
-        {field: "id", text: "Candidati", extra: {dataFormat: buttonInsideHall, export: false}},
+        {
+            field: "id",
+            text: "Candidati",
+            extra: {dataFormat: buttonInsideHall, export: false, hiddenOnInsert: true, autoValue: true}
+        },
     ];
 
     return (

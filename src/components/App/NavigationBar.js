@@ -25,10 +25,10 @@ const NavigationBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Item><Nav.Link href="/">Home</Nav.Link></Nav.Item>
-                        <Nav.Item><Nav.Link href="/candidates">Candidati</Nav.Link></Nav.Item>
-                        <Nav.Item><Nav.Link href="/supervisors">Supraveghetori</Nav.Link></Nav.Item>
-                        <Nav.Item> <Nav.Link href="/halls">Sali</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/"><h5>Home</h5></Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/candidates"><h5>Candidati</h5></Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/supervisors"><h5>Supraveghetori</h5></Nav.Link></Nav.Item>
+                        <Nav.Item> <Nav.Link href="/halls"><h5>Sali</h5></Nav.Link></Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

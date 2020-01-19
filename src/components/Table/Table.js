@@ -34,6 +34,7 @@ export default function Table(props) {
     }
 
     function onAfterInsertRow(row) {
+        console.log("Sergiu")
         if (!isCandidates()) {
             console.log("Add default id with value -1");
             row.id = "-1";
@@ -74,13 +75,13 @@ export default function Table(props) {
         exportCSVBtn: createCustomExportCSVButton,
         insertText: 'Inseriaza',
         deleteText: 'Sterge',
-        // saveText: 'my_save',
+        SAVE_BTN_TEXT: 'Salveaza',
         afterInsertRow: onAfterInsertRow,
         afterDeleteRow: onAfterDeleteRow
     };
 
     const cellEditProp = {
-        mode: 'click',
+        mode: 'dbclick',
         blurToSave: true,
         beforeSaveCell: onBeforeSaveCell
     };

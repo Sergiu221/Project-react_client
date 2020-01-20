@@ -1,11 +1,12 @@
 import API from "../utils/API";
-import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
-import React, {useState} from "react";
+import {BootstrapTable, ExportCSVButton, InsertModalHeader, TableHeaderColumn} from "react-bootstrap-table";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import API_BLOB from "../utils/API_BLOB";
+import CustomInsertModal from "./CustomInsertModal";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -23,24 +24,6 @@ export default function Table(props) {
         console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
         row[cellName] = cellValue;
         API.put(baseUrl + "/" + row.id, row).then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
-    }
-
-    function isCandidates() {
-        return baseUrl === "candidates";
-    }
-
-    function onAfterInsertRow(row) {
-        console.log("Sergiu")
-        if (!isCandidates()) {
-            console.log("Add default id with value -1");
-            row.id = "-1";
-        }
-        console.log(row);
-        API.post(baseUrl, row).then((response) => {
             console.log(response);
         }, (error) => {
             console.log(error);
@@ -71,12 +54,18 @@ export default function Table(props) {
         );
     }
 
+    const createCustomModal = (onModalClose, onSave, columns, validateState, ignoreEditable) => {
+        return (
+            <CustomInsertModal baseUrl={baseUrl}/>
+        );
+    };
+
     const options = {
         exportCSVBtn: createCustomExportCSVButton,
         insertText: 'Inseriaza',
         deleteText: 'Sterge',
         SAVE_BTN_TEXT: 'Salveaza',
-        afterInsertRow: onAfterInsertRow,
+        insertModal: createCustomModal,
         afterDeleteRow: onAfterDeleteRow
     };
 
@@ -145,8 +134,6 @@ export default function Table(props) {
             columnsReport: columnData
         };
 
-        console.log(props.data);
-        console.log(columnData);
         API_BLOB.post("reports" + "/" + baseUrl, report).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement("a");
@@ -192,6 +179,5 @@ export default function Table(props) {
                 </Modal.Body>
             </Modal>
         </React.Fragment>
-    )
-        ;
+    );
 }

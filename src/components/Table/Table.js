@@ -8,6 +8,8 @@ import Form from "react-bootstrap/Form";
 import API_BLOB from "../utils/API_BLOB";
 import CandidateForm from "../Candidates/CandidateForm";
 import HallForm from "../Halls/HallForm";
+import Supervisors from "../Supervisors/Supervisors";
+import SupervisorForm from "../Supervisors/SupervisorForm";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -62,6 +64,9 @@ export default function Table(props) {
 
         if (baseUrl === "halls")
             return (<HallForm/>)
+
+        if (baseUrl === "supervisors")
+            return (<SupervisorForm/>)
     };
 
     const options = {

@@ -19,7 +19,7 @@ export default function HallsTable() {
 
     const buttonInsideHall = (id) => (
         <div>
-            <Link to={`${baseUrl}/${id}`}>Sala cu id-ul: {id}</Link>
+            <Link to={`${baseUrl}/${id}`}>Vezi sala</Link>
         </div>
     );
 

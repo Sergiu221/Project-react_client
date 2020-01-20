@@ -14,7 +14,7 @@ export default function CandidateFrom() {
     const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const baseUrl = '/candidates'
     useEffect(() => {
         (async () => {
             const result = await API.get('/categories');
@@ -48,11 +48,15 @@ export default function CandidateFrom() {
         myValue.cnp = cnp.current.value;
         myValue.firstName = firstName.current.value;
         myValue.lastName = lastName.current.value;
-        console.log(categories);
-        console.log(categoryDTO);
         myValue.categoryDTO = categoryDTO;
 
-        console.log(myValue);
+        API.post(baseUrl, myValue).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+
+
         handleClose();
     }
 

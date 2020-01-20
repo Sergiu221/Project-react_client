@@ -1,12 +1,13 @@
 import API from "../utils/API";
-import {BootstrapTable, ExportCSVButton, InsertModalHeader, TableHeaderColumn} from "react-bootstrap-table";
-import React, {useEffect, useState} from "react";
+import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import API_BLOB from "../utils/API_BLOB";
-import CustomInsertModal from "./CustomInsertModal";
+import CandidateForm from "../Candidates/CandidateForm";
+import HallForm from "../Halls/HallForm";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -54,10 +55,13 @@ export default function Table(props) {
         );
     }
 
-    const createCustomModal = (onModalClose, onSave, columns, validateState, ignoreEditable) => {
-        return (
-            <CustomInsertModal baseUrl={baseUrl}/>
-        );
+    function createCustomModal() {
+        if (baseUrl === "candidates") {
+            return (<CandidateForm/>);
+        }
+
+        if (baseUrl === "halls")
+            return (<HallForm/>)
     };
 
     const options = {

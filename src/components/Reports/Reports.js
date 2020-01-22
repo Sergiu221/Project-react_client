@@ -1,9 +1,55 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+import {Link} from "react-router-dom";
+import API from "../utils/API";
+import API_BLOB from "../utils/API_BLOB";
 
 export default function Reports() {
+    const [halls, setHalls] = useState([])
 
+    useEffect(() => {
+        (async () => {
+            const result = await API.get('/halls/');
+
+            setHalls(result.data);
+        })();
+    }, []);
+
+
+    function generalListDistributed() {
+        API_BLOB.get("reports/general_list_distributed/").then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "lista_genera_pentru_repartizare.pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
+    function handleDownloadReportOnHall(id) {
+        console.log(id);
+        API_BLOB.get("reports/candidates_from_hall/" + id).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "candidates_from_hall_" + id + ".pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
+    function handleDownloadReportWithoutExam() {
+        API_BLOB.get("reports/candidates_without_exam/").then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "lista_candidatilor_fara_examen.pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
 
     return (
         <React.Fragment>
@@ -13,32 +59,32 @@ export default function Reports() {
                         <Card.Header className="d-flex justify-content-center">Repoarte de desfasurarea sesiunii de
                             Admitere</Card.Header>
                         <Card.Body>
-                            <Card.Text>Lista generală a candidaţilor </Card.Text>
+                            <Card.Text>
+                                <button type="button" className="btn btn-link"
+                                        onClick={() => {
+                                            generalListDistributed();
+                                        }}>Lista generală a candidaţilor
+                                </button>
+                            </Card.Text>
 
-                            <Card.Text>Lista candidaţilor care vor susţine examenul în sala B1 </Card.Text>
+                            {halls.map((hall, i) => {
+                                if (hall.listCandidates.length > 0) {
+                                    return < Card.Text key={i}>
+                                        <button className="button" className="btn btn-link"
+                                                onClick={() => {
+                                                    handleDownloadReportOnHall(hall.id)
+                                                }}>Lista candidaţilor care vor susţine examenul în sala {hall.name}
+                                        </button>
+                                    </Card.Text>
+                                }
+                            })}
 
-                            <Card.Text>Lista candidaţilor care vor susţine examenul în sala B2 </Card.Text>
-
-                            <Card.Text>Lista candidaţilor care vor susţine examenul în sala B4 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala B6 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala B7 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala B8 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala M.
-                                Kogalniceanu </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala C2 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala C3 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala C112 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care vor susţine examenul în sala C309 </Card.Text>
-
-                            <Card.Text> Lista candidaţilor care nu susţin proba scrisă </Card.Text>
+                            <Card.Text>
+                                <button className="button" className="btn btn-link"
+                                        onClick={() => handleDownloadReportWithoutExam()}>
+                                    Lista candidaţilor care nu susţin proba scrisă
+                                </button>
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -47,17 +93,22 @@ export default function Reports() {
                         <Card.Header className="d-flex justify-content-center">Repoarte de rezultate a sesiunii de
                             admitere</Card.Header>
                         <Card.Body>
-                            <Card.Text> Lista generală a candidaţilor </Card.Text>
+                            <Card.Text> <Link to={""}>Lista generală a candidaţilor</Link> </Card.Text>
                             <Card.Text>Lista candidaţilor olimpici (L1)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile rezervate absolvenţilor de licee
+                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile rezervate absolvenţilor de
+                                licee
                                 din mediul rural (L2)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finantaţe de la buget, studii în
+                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finantaţe de la buget, studii
+                                în
                                 limba română (L3)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finanţate de la buget, studii în
+                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finanţate de la buget, studii
+                                în
                                 limba engleză (L4)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba română
+                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba
+                                română
                                 (L5)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba engleză
+                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba
+                                engleză
                                 (L6)</Card.Text>
                             <Card.Text>Lista candidaţilor declaraţi respinşi (L8)</Card.Text>
                         </Card.Body>
@@ -65,7 +116,8 @@ export default function Reports() {
                 </Col>
             </Row>
         </React.Fragment>
-    );
+    )
+        ;
 
 }
 

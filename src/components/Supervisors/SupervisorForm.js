@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import API from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import {useForm} from "react-hook-form";
@@ -16,7 +16,7 @@ export default function SupervisorForm() {
 
     let firstName = useRef();
     let lastName = useRef();
-    let hall = useRef();
+    // let hall = useRef();
 
     let myValue = {
         id: undefined,

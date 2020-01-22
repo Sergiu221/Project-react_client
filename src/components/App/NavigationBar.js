@@ -1,6 +1,7 @@
 import React from "react";
 import {Nav, Navbar} from "react-bootstrap";
 import styled from 'styled-components';
+import {MyContext} from "../MyContext";
 
 const Styles = styled.div`
   .navbar-toggler-icon{
@@ -17,8 +18,7 @@ const Styles = styled.div`
   }
 `;
 
-const NavigationBar = () => {
-
+export default function NavigationBar() {
     return (
         <Styles>
             <Navbar expand="lg">
@@ -29,11 +29,18 @@ const NavigationBar = () => {
                         <Nav.Item><Nav.Link href="/candidates"><h5>Candidati</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/supervisors"><h5>Supraveghetori</h5></Nav.Link></Nav.Item>
                         <Nav.Item> <Nav.Link href="/halls"><h5>Sali</h5></Nav.Link></Nav.Item>
+                        <MyContext.Consumer>
+                            {(context) => {
+                                if (context.state.cool === "show") {
+                                    return (<Nav.Item> <Nav.Link href="/reports"><h5>Rapoarte</h5>
+                                    </Nav.Link></Nav.Item>)
+                                }
+                            }}
+                        </MyContext.Consumer>
+
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
         </Styles>
     );
 }
-
-export default NavigationBar;

@@ -8,7 +8,6 @@ import Form from "react-bootstrap/Form";
 import API_BLOB from "../utils/API_BLOB";
 import CandidateForm from "../Candidates/CandidateForm";
 import HallForm from "../Halls/HallForm";
-import Supervisors from "../Supervisors/Supervisors";
 import SupervisorForm from "../Supervisors/SupervisorForm";
 
 export default function Table(props) {
@@ -116,11 +115,10 @@ export default function Table(props) {
             return [(key), data[key]];
         });
 
-        console.log(result);
         let i = 0;
         columnData.find((element => {
             try {
-                if (element.field != "id") {
+                if (element.field !== "id") {
                     if (element.field === result[i][0]) {
                         if (result[i][1] === true) {
                             element.isReport = true;

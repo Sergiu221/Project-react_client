@@ -17,18 +17,21 @@ export default function Candidates() {
         })();
     }, []);
 
-    const buttonInsideHall = (id) => (
-        <div>
-            <Link to={`${baseUrlHalls}/${id.id}`}>{id.name}</Link>
-        </div>
-    );
+    function buttonInsideHall(id) {
+        if (id != null) {
+            return (<div>
+                <Link to={`${baseUrlHalls}/${id.id}`}>{id.name}</Link>
+            </div>)
+        }
+    }
 
-    const buttonInsideCategory = (id) => (
-        <div>
-            <Link to={`${baseUrlCategories}/${id.id}`}>{id.name}</Link>
-        </div>
-    );
-
+    function buttonInsideCategory(id) {
+        if (id != null) {
+            return (<div>
+                <Link to={`${baseUrlCategories}/${id.id}`}>{id.name}</Link>
+            </div>)
+        }
+    }
 
     const buildColumnData = [
         {field: "cnp", text: "CNP", dataType: "java.lang.Long", extra: {isKey: true}},
@@ -38,7 +41,8 @@ export default function Candidates() {
         {
             field: "categoryDTO",
             dataType: "com.sergiu.dto.CategoryDTO",
-            text: "Categoria", extra: {dataFormat: buttonInsideCategory, editable: false}
+            text: "Categoria",
+            extra: {dataFormat: buttonInsideCategory, editable: false}
         },
         {
             field: "hallDTO",
@@ -49,6 +53,6 @@ export default function Candidates() {
     ];
 
     return (
-        <Table data={candidates} baseUrl={baseUrl} columnData={buildColumnData}/>
+        <Table data={candidates} baseUrl={'candidates'} columnData={buildColumnData}/>
     );
 }

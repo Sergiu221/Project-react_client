@@ -14,7 +14,7 @@ export default function CandidateFrom() {
     const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const baseUrl = '/candidates'
+    const baseUrl = '/candidates';
     useEffect(() => {
         (async () => {
             const result = await API.get('/categories');
@@ -40,7 +40,7 @@ export default function CandidateFrom() {
 
     function onSelect(e) {
         let {value} = e.target;
-        categoryDTO = categories.find(element => element.id == value)
+        categoryDTO = categories.find(element => element.id === value)
 
     }
 
@@ -55,7 +55,6 @@ export default function CandidateFrom() {
         }, (error) => {
             console.log(error);
         });
-
 
         handleClose();
     }
@@ -97,13 +96,12 @@ export default function CandidateFrom() {
                         <Button variant="secondary" onClick={handleClose}>
                             Inchide
                         </Button>
-                        <Button variant="primary" type="submit" onClick={handleSubmit(handleInsert)}>
-                            Descarca
+                        <Button variant="primary" type="submit" onClick={() => handleSubmit(handleInsert)}>
+                            Insereaza
                         </Button>
                     </Form>
                 </Modal.Body>
             </Modal>
-
         </React.Fragment>
     )
 }

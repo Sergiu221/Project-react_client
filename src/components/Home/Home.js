@@ -6,23 +6,22 @@ import Card from "react-bootstrap/Card";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonDistribution from "./ButtonDistribution";
 import ButtonReset from "./ButtonReset";
-import API from "../utils/API";
+import { API }  from "../utils/API";
 
 export default function Home() {
 
     const [numberCandidates, setNumberCandidates] = useState([]);
     const [numberOfSupervisors, setNumberOfSupervisors] = useState([]);
     const [numberOfHalls, setNumberOfHalls] = useState([]);
-    const baseUrl = 'home';
+    const baseUrl = '/home';
 
     useEffect(() => {
-        (async () => {
-            const result = await API.get(baseUrl);
-            setNumberCandidates(result.data.numberOfCandidates);
-            setNumberOfSupervisors(result.data.numberOfSupervisors);
-            setNumberOfHalls(result.data.numberOfHalls);
-        })();
-    }, [])
+        API.get(baseUrl).then(({data}) => {
+            setNumberCandidates(data.numberOfCandidates);
+            setNumberOfSupervisors(data.numberOfSupervisors);
+            setNumberOfHalls(data.numberOfHalls);
+        });
+    }, []);
 
     return (
         <React.Fragment>
@@ -74,3 +73,4 @@ export default function Home() {
         </React.Fragment>
     );
 }
+

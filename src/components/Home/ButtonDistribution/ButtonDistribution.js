@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import API from "../../utils/API";
+import { API }  from "../../utils/API";
 import {MyContext} from "../../MyContext";
 
 const Styles = styled.div`

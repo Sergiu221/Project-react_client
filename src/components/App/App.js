@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import React, {Component} from 'react';
 import './App.css';
 
@@ -13,32 +13,45 @@ import Jumbotron from "./Jumbotron";
 import IndividualHall from "../Hall";
 import Reports from "../Reports";
 import MyProvider from "../MyProvider";
+import Login from "../Login";
+import {authService} from "../utils/API";
 
 class App extends Component {
 
     render() {
         return (
             <MyProvider>
-                <React.Fragment>
-                    <NavigationBar/>
-                    <Jumbotron/>
-                    <Layout>
-                        <Router>
+                <Router>
+                    <React.Fragment>
+                        <Switch>
+                            <PrivateRoute path={['/home', '/candidates', '/supervisors', '/halls', '/halls/:id', '/reports']}
+                                          component={() => <><NavigationBar/><Jumbotron/></>}/>
+                        </Switch>
+                        <Layout>
                             <Switch>
-                                <Route exact path="/" component={Home}/>
-                                <Route path="/candidates" exact={true} component={Candidates}/>
-                                <Route path="/supervisors" exact={true} component={Supervisors}/>
-                                <Route path="/halls" exact={true} component={HallsTable}/>
-                                <Route path="/halls/:id" component={IndividualHall}/>
-                                <Route path="/reports" exact={true} component={Reports}/>
+                                <PrivateRoute exact path="/home" component={Home}/>
+                                <PrivateRoute path="/candidates" exact={true} component={Candidates}/>
+                                <PrivateRoute path="/supervisors" exact={true} component={Supervisors}/>
+                                <PrivateRoute path="/halls" exact={true} component={HallsTable}/>
+                                <PrivateRoute path="/halls/:id" component={IndividualHall}/>
+                                <PrivateRoute path="/reports" exact={true} component={Reports}/>
+                                <Route path="/login" exact={true} component={Login}/>
                                 <Route component={Nothing}/>
                             </Switch>
-                        </Router>
-                    </Layout>
-                </React.Fragment>
+                        </Layout>
+                    </React.Fragment>
+                </Router>
             </MyProvider>
         );
     }
 }
+
+const PrivateRoute = ({component: Component, ...rest}) => {
+    if(authService.isAuthenticated())
+        authService.login(authService.getToken());
+
+    return <Route {...rest}
+                  render={(props) => authService.isAuthenticated() ? <Component {...props}/> : <Redirect to={'/login'}/>}/>
+    };
 
 export default App;

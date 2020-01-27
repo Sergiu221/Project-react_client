@@ -1,15 +1,7 @@
 import axios from "axios";
+import {getBaseURL} from "./API";
 
-export default axios.create({
+export const API_BLOB = axios.create({
     baseURL: getBaseURL(),
     responseType: 'blob'
-
 });
-
-function getBaseURL() {
-    if (process.env.REACT_APP_STAGE !== 'production') {
-        console.log("REACT_APP_STAGE:" + process.env.REACT_APP_STAGE);
-        return 'http://localhost:8080';
-    }
-    return 'https://api-licenta.herokuapp.com';
-}

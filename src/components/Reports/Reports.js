@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import {Link} from "react-router-dom";
-import API from "../utils/API";
-import API_BLOB from "../utils/API_BLOB";
+import { API }  from "../utils/API";
+import { API_BLOB } from "../utils/API_BLOB";
 
 export default function Reports() {
     const [halls, setHalls] = useState([])
@@ -51,36 +50,54 @@ export default function Reports() {
         });
     }
 
+    function generalListWithResults() {
+        API_BLOB.get("reports/general_list_results").then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "lista_genera_cu_rezultate.pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
+    function generalList(listName) {
+        API_BLOB.get("reports/list/" + listName).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "lista" + listName + ".pdf");
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
     return (
         <React.Fragment>
             <Row>
                 <Col>
                     <Card bg="white" text="dark">
-                        <Card.Header className="d-flex justify-content-center">Repoarte de desfasurarea sesiunii de
-                            Admitere</Card.Header>
+                        <Card.Header className="d-flex justify-content-center">
+                            Repoarte de desfasurarea sesiunii de Admitere
+                        </Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                <button type="button" className="btn btn-link"
+                                <button className="button btn btn-link"
                                         onClick={() => {
                                             generalListDistributed();
                                         }}>Lista generală a candidaţilor
                                 </button>
                             </Card.Text>
 
-                            {halls.map((hall, i) => {
-                                if (hall.listCandidates.length > 0) {
-                                    return < Card.Text key={i}>
-                                        <button className="button" className="btn btn-link"
-                                                onClick={() => {
-                                                    handleDownloadReportOnHall(hall.id)
-                                                }}>Lista candidaţilor care vor susţine examenul în sala {hall.name}
-                                        </button>
-                                    </Card.Text>
-                                }
-                            })}
+                            {halls.map(hall => hall.listCandidates.length > 0 && <Card.Text key={hall.id}>
+                                <button className="button btn btn-link"
+                                        onClick={() => {handleDownloadReportOnHall(hall.id)}}>
+                                    Lista candidaţilor care vor susţine examenul în sala {hall.name}
+                                </button>
+                            </Card.Text>)}
 
                             <Card.Text>
-                                <button className="button" className="btn btn-link"
+                                <button className="button btn btn-link"
                                         onClick={() => handleDownloadReportWithoutExam()}>
                                     Lista candidaţilor care nu susţin proba scrisă
                                 </button>
@@ -93,31 +110,63 @@ export default function Reports() {
                         <Card.Header className="d-flex justify-content-center">Repoarte de rezultate a sesiunii de
                             admitere</Card.Header>
                         <Card.Body>
-                            <Card.Text> <Link to={""}>Lista generală a candidaţilor</Link> </Card.Text>
-                            <Card.Text>Lista candidaţilor olimpici (L1)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile rezervate absolvenţilor de
-                                licee
-                                din mediul rural (L2)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finantaţe de la buget, studii
-                                în
-                                limba română (L3)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile finanţate de la buget, studii
-                                în
-                                limba engleză (L4)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba
-                                română
-                                (L5)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi admişi pe locurile cu taxă, studii în limba
-                                engleză
-                                (L6)</Card.Text>
-                            <Card.Text>Lista candidaţilor declaraţi respinşi (L8)</Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalListWithResults()}>Lista generală a candidaţilor
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L1")}>Lista candidaţilor olimpici (L1)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L2")}>Lista candidaţilor declaraţi admişi pe
+                                    locurile rezervate absolvenţilor de licee din mediul rural (L2)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L3")}>Lista candidaţilor declaraţi admişi pe
+                                    locurile finantaţe de la buget, studii în limba română (L3)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L4")}>Lista candidaţilor declaraţi admişi pe
+                                    locurile finanţate de la buget, studii în limba engleză (L4)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L5")}>Lista candidaţilor declaraţi admişi pe
+                                    locurile cu taxă, studii în limba română (L5)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L6")}>Lista candidaţilor declaraţi admişi pe
+                                    locurile cu taxă, studii în limba engleză (L6)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L7")}>Lista candidaţilor declaraţi respinşi, care
+                                    pot beneficia de refacerea ulterioară a listelor (L7)
+                                </button>
+                            </Card.Text>
+                            <Card.Text>
+                                <button className="button btn btn-link"
+                                        onClick={() => generalList("L8")}>Lista candidaţilor declaraţi respinşi (L8)
+                                </button>
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
         </React.Fragment>
-    )
-        ;
+    );
 
 }
 

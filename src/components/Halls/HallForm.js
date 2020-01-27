@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import * as React from "react";
 import {useForm} from "react-hook-form";
 import {useState} from "react";
-import API from "../utils/API";
+import { API }  from "../utils/API";
 import {useRef} from "react";
 
 export default function HallFrom() {

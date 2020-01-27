@@ -1,11 +1,11 @@
-import API from "../utils/API";
+import { API }  from "../utils/API";
 import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
 import React, {useState} from "react";
 import {useForm} from "react-hook-form"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import API_BLOB from "../utils/API_BLOB";
+import { API_BLOB } from "../utils/API_BLOB";
 import CandidateForm from "../Candidates/CandidateForm";
 import HallForm from "../Halls/HallForm";
 import SupervisorForm from "../Supervisors/SupervisorForm";
@@ -116,7 +116,7 @@ export default function Table(props) {
         });
 
         let i = 0;
-        columnData.find((element => {
+        columnData.forEach((element => {
             try {
                 if (element.field !== "id") {
                     if (element.field === result[i][0]) {
@@ -141,7 +141,7 @@ export default function Table(props) {
             columnsReport: columnData
         };
 
-        API_BLOB.post("reports" + "/" + baseUrl, report).then((response) => {
+        API_BLOB.post(`reports/${baseUrl}`, report ).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement("a");
             link.href = url;

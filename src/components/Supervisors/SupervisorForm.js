@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import API from "../utils/API";
+import { API }  from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import {useForm} from "react-hook-form";
 import Modal from "react-bootstrap/Modal";

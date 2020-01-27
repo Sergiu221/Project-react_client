@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import API from "../utils/API";
+import { API }  from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import Table from "../Table";
 import {Link} from "react-router-dom";

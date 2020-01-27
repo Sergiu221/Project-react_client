@@ -1,7 +1,9 @@
-import React from "react";
-import {Nav, Navbar} from "react-bootstrap";
+import React, {useState} from "react";
+import {Nav, Navbar, Button} from "react-bootstrap";
 import styled from 'styled-components';
 import {MyContext} from "../MyContext";
+import {Redirect} from "react-router-dom";
+import {authService} from "../utils/API";
 
 const Styles = styled.div`
   .navbar-toggler-icon{
@@ -19,13 +21,20 @@ const Styles = styled.div`
 `;
 
 export default function NavigationBar() {
+    const [redirect, toggleRedirect] = useState(false);
+
+    const handleLogout = () => {
+        authService.logout();
+        toggleRedirect(true);
+    };
+
     return (
         <Styles>
             <Navbar expand="lg">
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Item><Nav.Link href="/"><h5>Home</h5></Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/home"><h5>Home</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/candidates"><h5>Candidati</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/supervisors"><h5>Supraveghetori</h5></Nav.Link></Nav.Item>
                         <Nav.Item> <Nav.Link href="/halls"><h5>Sali</h5></Nav.Link></Nav.Item>
@@ -39,8 +48,10 @@ export default function NavigationBar() {
                         </MyContext.Consumer>
 
                     </Nav>
+                    <Button variant="light" onClick={handleLogout}>Logout</Button>
                 </Navbar.Collapse>
             </Navbar>
+            {redirect && <Redirect to='/login'/>}
         </Styles>
     );
 }

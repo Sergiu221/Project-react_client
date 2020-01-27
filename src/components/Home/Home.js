@@ -6,14 +6,48 @@ import Card from "react-bootstrap/Card";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import ButtonDistribution from "./ButtonDistribution";
 import ButtonReset from "./ButtonReset";
-import { API }  from "../utils/API";
+import {API} from "../utils/API";
+
+/*<Parinte/>
+
+class  Parinte {
+    private ceva ()
+
+    render() {
+        console.log(this)
+        return <Copil onClick={() => this.ceva().bind(this)}>test</Copil>
+    }
+}
+
+class Copil {
+    render(){
+        return(
+            console.log(this)
+            <button>{this.props.children}</button>
+        )
+    }
+}*/
 
 export default function Home() {
-
     const [numberCandidates, setNumberCandidates] = useState([]);
     const [numberOfSupervisors, setNumberOfSupervisors] = useState([]);
     const [numberOfHalls, setNumberOfHalls] = useState([]);
+    const [applicationState, setApplicationState] = useState({
+        id: 1,
+        isImportedResources: 'false',
+        isDistributed: 'false',
+        isDistributedFinalized: 'false',
+        isExamFinish: 'false'
+    });
     const baseUrl = '/home';
+
+    useEffect(() => {
+            API.get('data_base').then(({data}) => {
+                setApplicationState(data);
+                console.log(data);
+            })
+        }, []
+    );
 
     useEffect(() => {
         API.get(baseUrl).then(({data}) => {
@@ -21,7 +55,59 @@ export default function Home() {
             setNumberOfSupervisors(data.numberOfSupervisors);
             setNumberOfHalls(data.numberOfHalls);
         });
-    }, []);
+    }, [applicationState]);
+
+    const importResources = () => {
+        API.post('files/load_database').then((response) => {
+            console.log(response);
+            applicationState.isImportedResources = 'true';
+            setApplicationState({...applicationState});
+
+            API.post('data_base', applicationState).then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    const ButtonImportResources = <button className="button-importButton" onClick={importResources}>Incarca</button>;
+
+
+    function finalizeDistribution() {
+        console.log("Aici trebuie sa verific daca toti candidatii au o sala!");
+        //TODO: Veirica daca toti cadidatii sunt intr-o sala
+
+        applicationState.isDistributed = 'true';
+        applicationState.isDistributedFinalized = 'true';
+        setApplicationState({...applicationState});
+        API.post('data_base', applicationState).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    const ButtonFinalizeDistribution = <button className="button-finalize-distribution"
+                                               onClick={finalizeDistribution}> Finalizeza Distribuirea </button>;
+
+    function allocation() {
+        //TODO:aici trebuie sa verific daca toti candidatii au note
+
+        applicationState.isExamFinish = 'true';
+        setApplicationState({...applicationState});
+        API.post('data_base', applicationState).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    const ButtonAllocation = <button className="button-finalize-distribution" onClick={allocation}>
+        Finalizarea Examen </button>;
+
 
     return (
         <React.Fragment>
@@ -56,18 +142,35 @@ export default function Home() {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col>
+                {applicationState.isExamFinish == "false" && <Col>
                     <Card bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header>Admitere</Card.Header>
                         <Card.Body>
                             <Card.Title>Optiuni</Card.Title>
+                            {applicationState.isImportedResources == "false" &&
+                            <ButtonToolbar>
+                                {ButtonImportResources}
+                            </ButtonToolbar>
+                            }
+                            {applicationState.isImportedResources == "true" && applicationState.isDistributedFinalized == "false" &&
                             <ButtonToolbar>
                                 <ButtonDistribution/>
                                 <ButtonReset/>
                             </ButtonToolbar>
+                            }
+                            {applicationState.isImportedResources == "true" && applicationState.isDistributedFinalized == "false" &&
+                            <ButtonToolbar>
+                                {ButtonFinalizeDistribution}
+                            </ButtonToolbar>
+                            }
+                            {applicationState.isDistributedFinalized == "true" &&
+                            <ButtonToolbar>
+                                {ButtonAllocation}
+                            </ButtonToolbar>
+                            }
                         </Card.Body>
                     </Card>
-                </Col>
+                </Col>}
             </Row>
             <ChartHome/>
         </React.Fragment>

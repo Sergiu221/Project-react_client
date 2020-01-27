@@ -1,11 +1,26 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { API }  from "../utils/API";
-import { API_BLOB } from "../utils/API_BLOB";
+import {API} from "../utils/API";
+import {API_BLOB} from "../utils/API_BLOB";
 
 export default function Reports() {
-    const [halls, setHalls] = useState([])
+    const [halls, setHalls] = useState([]);
+    const [applicationState, setApplicationState] = useState({
+        id: 1,
+        isImportedResources: 'true',
+        isDistributed: 'false',
+        isDistributedFinalized: 'false',
+        isExamFinish: 'false'
+    });
+
+    useEffect(() => {
+            API.get('data_base').then(({data}) => {
+                setApplicationState(data);
+                console.log(data);
+            })
+        }, []
+    );
 
     useEffect(() => {
         (async () => {
@@ -75,6 +90,7 @@ export default function Reports() {
     return (
         <React.Fragment>
             <Row>
+                {applicationState.isDistributedFinalized == "true" &&
                 <Col>
                     <Card bg="white" text="dark">
                         <Card.Header className="d-flex justify-content-center">
@@ -91,7 +107,9 @@ export default function Reports() {
 
                             {halls.map(hall => hall.listCandidates.length > 0 && <Card.Text key={hall.id}>
                                 <button className="button btn btn-link"
-                                        onClick={() => {handleDownloadReportOnHall(hall.id)}}>
+                                        onClick={() => {
+                                            handleDownloadReportOnHall(hall.id)
+                                        }}>
                                     Lista candidaţilor care vor susţine examenul în sala {hall.name}
                                 </button>
                             </Card.Text>)}
@@ -105,6 +123,10 @@ export default function Reports() {
                         </Card.Body>
                     </Card>
                 </Col>
+                }
+            </Row>
+            <Row>
+                {applicationState.isExamFinish == "true" &&
                 <Col>
                     <Card bg="white" text="dark">
                         <Card.Header className="d-flex justify-content-center">Repoarte de rezultate a sesiunii de
@@ -163,7 +185,7 @@ export default function Reports() {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                </Col>
+                </Col>}
             </Row>
         </React.Fragment>
     );

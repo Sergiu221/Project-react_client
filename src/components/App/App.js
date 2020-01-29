@@ -15,6 +15,7 @@ import Reports from "../Reports";
 import MyProvider from "../MyProvider";
 import Login from "../Login";
 import {authService} from "../utils/API";
+import Grades from "../Grades";
 
 class App extends Component {
 
@@ -24,8 +25,9 @@ class App extends Component {
                 <Router>
                     <React.Fragment>
                         <Switch>
-                            <PrivateRoute path={['/home', '/candidates', '/supervisors', '/halls', '/halls/:id', '/reports']}
-                                          component={() => <><NavigationBar/><Jumbotron/></>}/>
+                            <PrivateRoute
+                                path={['/home', '/candidates', '/supervisors', '/halls', '/halls/:id', '/grades', '/reports']}
+                                component={() => <><NavigationBar/><Jumbotron/></>}/>
                         </Switch>
                         <Layout>
                             <Switch>
@@ -34,6 +36,7 @@ class App extends Component {
                                 <PrivateRoute path="/supervisors" exact={true} component={Supervisors}/>
                                 <PrivateRoute path="/halls" exact={true} component={HallsTable}/>
                                 <PrivateRoute path="/halls/:id" component={IndividualHall}/>
+                                <PrivateRoute path="/grades" exact={true} component={Grades}/>
                                 <PrivateRoute path="/reports" exact={true} component={Reports}/>
                                 <Route path="/login" exact={true} component={Login}/>
                                 <Route component={Nothing}/>
@@ -47,11 +50,12 @@ class App extends Component {
 }
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    if(authService.isAuthenticated())
+    if (authService.isAuthenticated())
         authService.login(authService.getToken());
 
     return <Route {...rest}
-                  render={(props) => authService.isAuthenticated() ? <Component {...props}/> : <Redirect to={'/login'}/>}/>
-    };
+                  render={(props) => authService.isAuthenticated() ? <Component {...props}/> :
+                      <Redirect to={'/login'}/>}/>
+};
 
 export default App;

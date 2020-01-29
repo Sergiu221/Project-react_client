@@ -8,26 +8,6 @@ import ButtonDistribution from "./ButtonDistribution";
 import ButtonReset from "./ButtonReset";
 import {API} from "../utils/API";
 
-/*<Parinte/>
-
-class  Parinte {
-    private ceva ()
-
-    render() {
-        console.log(this)
-        return <Copil onClick={() => this.ceva().bind(this)}>test</Copil>
-    }
-}
-
-class Copil {
-    render(){
-        return(
-            console.log(this)
-            <button>{this.props.children}</button>
-        )
-    }
-}*/
-
 export default function Home() {
     const [numberCandidates, setNumberCandidates] = useState([]);
     const [numberOfSupervisors, setNumberOfSupervisors] = useState([]);
@@ -95,14 +75,19 @@ export default function Home() {
 
     function allocation() {
         //TODO:aici trebuie sa verific daca toti candidatii au note
-
-        applicationState.isExamFinish = 'true';
-        setApplicationState({...applicationState});
-        API.post('data_base', applicationState).then((response) => {
+        API.get("/allocation").then((response) => {
+            applicationState.isExamFinish = 'true';
+            setApplicationState({...applicationState});
             console.log(response);
+            API.post('data_base', applicationState).then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
         }, (error) => {
             console.log(error);
         });
+
     }
 
     const ButtonAllocation = <button className="button-finalize-distribution" onClick={allocation}>

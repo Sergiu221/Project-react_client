@@ -1,11 +1,11 @@
-import { API }  from "../utils/API";
+import {API} from "../utils/API";
 import {BootstrapTable, ExportCSVButton, TableHeaderColumn} from "react-bootstrap-table";
 import React, {useState} from "react";
 import {useForm} from "react-hook-form"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { API_BLOB } from "../utils/API_BLOB";
+import {API_BLOB} from "../utils/API_BLOB";
 import CandidateForm from "../Candidates/CandidateForm";
 import HallForm from "../Halls/HallForm";
 import SupervisorForm from "../Supervisors/SupervisorForm";
@@ -23,9 +23,19 @@ export default function Table(props) {
     let keyField = props.keyField;
 
     function onBeforeSaveCell(row, cellName, cellValue) {
+        console.log(row);
         console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
         row[cellName] = cellValue;
-        API.put(baseUrl + "/" + row.id, row).then((response) => {
+
+        let id;
+        if (baseUrl != "candidates" && baseUrl != "grades") {
+            id = row.id;
+        } else {
+            id = row.cnp;
+        }
+
+        console.log(baseUrl + "/" + id);
+        API.put(baseUrl + "/" + id, row).then((response) => {
             console.log(response);
         }, (error) => {
             console.log(error);
@@ -68,12 +78,27 @@ export default function Table(props) {
             return (<SupervisorForm/>)
     };
 
+    function onAfterInsertRow(row) {
+
+        if (baseUrl != "candidates" && baseUrl != "grades") {
+            console.log("Add default id with value -1");
+            row.id = "-1";
+        }
+
+        console.log(row);
+        API.post(baseUrl, row).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        })
+    }
+
     const options = {
         exportCSVBtn: createCustomExportCSVButton,
         insertText: 'Inseriaza',
         deleteText: 'Sterge',
         SAVE_BTN_TEXT: 'Salveaza',
-        insertModal: createCustomModal,
+        afterInsertRow: onAfterInsertRow,
         afterDeleteRow: onAfterDeleteRow
     };
 
@@ -141,7 +166,7 @@ export default function Table(props) {
             columnsReport: columnData
         };
 
-        API_BLOB.post(`reports/${baseUrl}`, report ).then((response) => {
+        API_BLOB.post(`reports/${baseUrl}`, report).then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement("a");
             link.href = url;

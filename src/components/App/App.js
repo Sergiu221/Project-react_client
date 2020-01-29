@@ -16,6 +16,7 @@ import MyProvider from "../MyProvider";
 import Login from "../Login";
 import {authService} from "../utils/API";
 import Grades from "../Grades";
+import Categories from "../Categories/Categories";
 
 class App extends Component {
 
@@ -26,12 +27,13 @@ class App extends Component {
                     <React.Fragment>
                         <Switch>
                             <PrivateRoute
-                                path={['/home', '/candidates', '/supervisors', '/halls', '/halls/:id', '/grades', '/reports']}
+                                path={['/home', '/categories', '/candidates', '/supervisors', '/halls', '/halls/:id', '/grades', '/reports']}
                                 component={() => <><NavigationBar/><Jumbotron/></>}/>
                         </Switch>
                         <Layout>
                             <Switch>
                                 <PrivateRoute exact path="/home" component={Home}/>
+                                <PrivateRoute exact path="/categories" component={Categories}/>
                                 <PrivateRoute path="/candidates" exact={true} component={Candidates}/>
                                 <PrivateRoute path="/supervisors" exact={true} component={Supervisors}/>
                                 <PrivateRoute path="/halls" exact={true} component={HallsTable}/>

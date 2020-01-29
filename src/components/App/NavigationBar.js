@@ -35,6 +35,7 @@ export default function NavigationBar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Item><Nav.Link href="/home"><h5>Home</h5></Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/categories"><h5>Categorii</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/candidates"><h5>Candidati</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/supervisors"><h5>Supraveghetori</h5></Nav.Link></Nav.Item>
                         <Nav.Item> <Nav.Link href="/halls"><h5>Sali</h5></Nav.Link></Nav.Item>

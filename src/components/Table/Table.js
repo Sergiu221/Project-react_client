@@ -6,9 +6,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import {API_BLOB} from "../utils/API_BLOB";
-import CandidateForm from "../Candidates/CandidateForm";
-import HallForm from "../Halls/HallForm";
-import SupervisorForm from "../Supervisors/SupervisorForm";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -65,18 +62,6 @@ export default function Table(props) {
                 onClick={e => handleExportCSVButtonClick(e)}/>
         );
     }
-
-    function createCustomModal() {
-        if (baseUrl === "candidates") {
-            return (<CandidateForm/>);
-        }
-
-        if (baseUrl === "halls")
-            return (<HallForm/>)
-
-        if (baseUrl === "supervisors")
-            return (<SupervisorForm/>)
-    };
 
     function onAfterInsertRow(row) {
 

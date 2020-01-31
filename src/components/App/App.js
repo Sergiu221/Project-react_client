@@ -41,6 +41,7 @@ class App extends Component {
                                 <PrivateRoute path="/grades" exact={true} component={Grades}/>
                                 <PrivateRoute path="/reports" exact={true} component={Reports}/>
                                 <Route path="/login" exact={true} component={Login}/>
+                                <Redirect from={'/'} to={'/login'} exact={true}/>
                                 <Route component={Nothing}/>
                             </Switch>
                         </Layout>

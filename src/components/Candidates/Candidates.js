@@ -68,6 +68,8 @@ export default function Candidates() {
         {field: "cnp", text: "CNP", dataType: "java.lang.Long", extra: {isKey: true}},
         {field: "firstName", dataType: "java.lang.String", text: "Prenume"},
         {field: "lastName", dataType: "java.lang.String", text: "Nume"},
+        {field: "bacGrade", dataType: "java.lang.Double", text: "Mate/Info"},
+        {field: "bacBestGrade", dataType: "java.lang.Double", text: "Bac"},
         {field: "highSchool", dataType: "java.lang.String", text: "Liceu"},
         {
             field: "categoryDTO",

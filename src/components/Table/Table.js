@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import {API_BLOB} from "../utils/API_BLOB";
+import {addCandidateToCategoryName} from "../services/CandidatesService";
 
 export default function Table(props) {
     const {register, handleSubmit} = useForm();
@@ -23,20 +24,21 @@ export default function Table(props) {
         console.log(row);
         console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
         row[cellName] = cellValue;
-
-        let id;
-        if (baseUrl != "candidates" && baseUrl != "grades") {
-            id = row.id;
+        if (baseUrl === "candidates" || baseUrl === "grades") {
+            API.put(baseUrl + "/" + row.cnp, row).then((response) => {
+                console.log(row);
+            }, (error) => {
+                console.log(row);
+                console.log(error);
+            });
         } else {
-            id = row.cnp;
+            API.put(baseUrl + "/" + row.id, row).then((response) => {
+                console.log(row);
+            }, (error) => {
+                console.log(row);
+                console.log(error);
+            });
         }
-
-        console.log(baseUrl + "/" + id);
-        API.put(baseUrl + "/" + id, row).then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });
     }
 
     function onAfterDeleteRow(rowKeys) {
@@ -64,18 +66,22 @@ export default function Table(props) {
     }
 
     function onAfterInsertRow(row) {
-
-        if (baseUrl != "candidates" && baseUrl != "grades") {
+        console.log(baseUrl);
+        if (baseUrl !== "candidates" && baseUrl !== "grades") {
             console.log("Add default id with value -1");
             row.id = "-1";
         }
 
-        console.log(row);
-        API.post(baseUrl, row).then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        })
+        if (baseUrl === "candidates" && typeof row['categoryName'] !== undefined) {
+            addCandidateToCategoryName(row, row.categoryName);
+        } else {
+            API.post(baseUrl, row).then((response) => {
+                console.log(row);
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
+        }
     }
 
     const options = {

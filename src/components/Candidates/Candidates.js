@@ -1,16 +1,18 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useEffect, useState} from "react";
 import {API} from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import Table from "../Table";
 import {Link} from "react-router-dom";
 import "./Candidates.css"
+import {getCategoriesName} from "../services/CandidatesService";
 
 export default function Candidates() {
-    const [, updateState] = React.useState();
     const [candidates, setCandidates] = useState([]);
+    const [categories, setCategories] = useState([]);
     const baseUrl = 'candidates';
     const baseUrlHalls = 'halls';
     const baseUrlCategories = 'categories';
+
     const [applicationState, setApplicationState] = useState({
         id: 1,
         isImportedResources: 'false',
@@ -18,6 +20,9 @@ export default function Candidates() {
         isDistributedFinalized: 'false',
         isExamFinish: 'false'
     });
+
+    const fetchData = () => API.get(baseUrl).then(({data}) => setCandidates(data));
+    const fetchDataCategories = () => API.get(baseUrlCategories).then(({data}) => setCategories(data));
 
     useEffect(() => {
             API.get('data_base').then(({data}) => {
@@ -27,10 +32,8 @@ export default function Candidates() {
     );
 
     useEffect(() => {
-        (async () => {
-            const result = await API.get(baseUrl);
-            setCandidates(result.data);
-        })();
+        fetchData();
+        fetchDataCategories();
     }, []);
 
     function buttonInsideHall(id) {
@@ -41,30 +44,23 @@ export default function Candidates() {
         }
     }
 
-    function buttonInsideCategory(id) {
-        if (id != null) {
-            return (<div>
-                <Link to={`${baseUrlCategories}/${id.id}`}>{id.name}</Link>
-            </div>)
-        }
-    }
+    const buttonInsideCategory = (id) => id && <div>
+        <Link to={`${baseUrlCategories}/${id.id}`}>{id.name}</Link>
+    </div>;
 
-    function rejectCandidate(cnp) {
-        API.get('/admission/reject/' + cnp);
-    }
 
-    function buttonReject(cnp) {
+    const rejectCandidate = (cnp) => {
+        API.get('/admission/reject/' + cnp).then(fetchData);
+    };
 
+    function buttonReject(element, {cnp}) {
         const candidate = candidates.find(candidate => candidate.cnp === cnp);
-        console.log(candidate.statusExam);
-        if (candidate.statusExam === "RESPINS") {
+
+        if (candidate && candidate.statusExam === "RESPINS") {
             return (<div>RESPINS</div>);
         } else {
-            this.handleRejectCandidate = function (id) {
-                rejectCandidate(id);
-            };
             return (<button className="button-reject-candidate"
-                            onClick={() => this.handleRejectCandidate(cnp)}> Respinge </button>);
+                            onClick={() => rejectCandidate(cnp)}> Respinge </button>);
         }
     }
 
@@ -77,7 +73,14 @@ export default function Candidates() {
             field: "categoryDTO",
             dataType: "com.sergiu.dto.CategoryDTO",
             text: "Categoria",
-            extra: {dataFormat: buttonInsideCategory, editable: false}
+            extra: {
+                dataFormat: buttonInsideCategory, hiddenOnInsert: true, editable: false
+            },
+        },
+        {
+            field: "categoryName",
+            text: "Categoria",
+            extra: {editable: {type: 'select', options: {values: getCategoriesName(categories)}}, hidden: true}
         },
         {
             field: "hallDTO",
@@ -86,8 +89,8 @@ export default function Candidates() {
             extra: {dataFormat: buttonInsideHall, editable: false}
         },
         {
-            field: "cnp",
-            text: "Respinde Candidat",
+            field: "",
+            text: "Respinge Candidat",
             dataType: "java.lang.Long",
             extra: {
                 dataFormat: buttonReject,

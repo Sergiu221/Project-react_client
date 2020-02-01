@@ -24,7 +24,7 @@ export default function Table(props) {
         console.log(row);
         console.log("Change " + cellName + "to value: " + cellValue + " with row-id:" + row.id);
         row[cellName] = cellValue;
-        if (baseUrl === "candidates" || baseUrl === "grades") {
+        if (baseUrl === "candidates" || baseUrl === "grades" || baseUrl === "candidate_option") {
             API.put(baseUrl + "/" + row.cnp, row).then((response) => {
                 console.log(row);
             }, (error) => {

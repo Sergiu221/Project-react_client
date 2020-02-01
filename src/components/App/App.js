@@ -17,6 +17,7 @@ import Login from "../Login";
 import {authService} from "../utils/API";
 import Grades from "../Grades";
 import Categories from "../Categories/Categories";
+import CandidatesOptions from "../CanidatesOptions/CandidatesOptions";
 
 class App extends Component {
 
@@ -27,7 +28,7 @@ class App extends Component {
                     <React.Fragment>
                         <Switch>
                             <PrivateRoute
-                                path={['/home', '/categories', '/candidates', '/supervisors', '/halls', '/halls/:id', '/grades', '/reports']}
+                                path={['/home', '/categories', '/candidates', '/candidates_options', '/supervisors', '/halls', '/halls/:id', '/grades', '/reports']}
                                 component={() => <><NavigationBar/><Jumbotron/></>}/>
                         </Switch>
                         <Layout>
@@ -35,6 +36,7 @@ class App extends Component {
                                 <PrivateRoute exact path="/home" component={Home}/>
                                 <PrivateRoute exact path="/categories" component={Categories}/>
                                 <PrivateRoute path="/candidates" exact={true} component={Candidates}/>
+                                <PrivateRoute path="/candidates_options" exact={true} component={CandidatesOptions}/>
                                 <PrivateRoute path="/supervisors" exact={true} component={Supervisors}/>
                                 <PrivateRoute path="/halls" exact={true} component={HallsTable}/>
                                 <PrivateRoute path="/halls/:id" component={IndividualHall}/>

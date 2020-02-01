@@ -89,8 +89,8 @@ export default function Reports() {
 
     return (
         <React.Fragment>
-            <Row>
-                {applicationState.isDistributedFinalized == "true" &&
+            <Row style={{marginBottom: 36}}>
+                {applicationState.isDistributedFinalized === "true" &&
                 <Col>
                     <Card bg="white" text="dark">
                         <Card.Header className="d-flex justify-content-center">
@@ -125,8 +125,8 @@ export default function Reports() {
                 </Col>
                 }
             </Row>
-            <Row>
-                {applicationState.isExamFinish == "true" &&
+            <Row style={{marginBottom: 36}}>
+                {applicationState.isExamFinish === "true" &&
                 <Col>
                     <Card bg="white" text="dark">
                         <Card.Header className="d-flex justify-content-center">Repoarte de rezultate a sesiunii de

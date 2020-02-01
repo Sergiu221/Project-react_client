@@ -127,28 +127,28 @@ export default function Home() {
                         </Card.Body>
                     </Card>
                 </Col>
-                {applicationState.isExamFinish == "false" && <Col>
+                {applicationState.isExamFinish === "false" && <Col>
                     <Card bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header>Admitere</Card.Header>
                         <Card.Body>
                             <Card.Title>Optiuni</Card.Title>
-                            {applicationState.isImportedResources == "false" &&
+                            {applicationState.isImportedResources === "false" &&
                             <ButtonToolbar>
                                 {ButtonImportResources}
                             </ButtonToolbar>
                             }
-                            {applicationState.isImportedResources == "true" && applicationState.isDistributedFinalized == "false" &&
+                            {applicationState.isImportedResources === "true" && applicationState.isDistributedFinalized === "false" &&
                             <ButtonToolbar>
                                 <ButtonDistribution/>
                                 <ButtonReset/>
                             </ButtonToolbar>
                             }
-                            {applicationState.isImportedResources == "true" && applicationState.isDistributedFinalized == "false" &&
+                            {applicationState.isImportedResources === "true" && applicationState.isDistributedFinalized === "false" &&
                             <ButtonToolbar>
                                 {ButtonFinalizeDistribution}
                             </ButtonToolbar>
                             }
-                            {applicationState.isDistributedFinalized == "true" &&
+                            {applicationState.isDistributedFinalized === "true" &&
                             <ButtonToolbar>
                                 {ButtonAllocation}
                             </ButtonToolbar>

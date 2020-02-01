@@ -24,12 +24,16 @@ export default function Grades() {
         }, []
     );
 
-    useEffect(() => {
+    const fetchData = () => {
         (async () => {
             const result = await API.get(baseUrl);
             console.log(result.data);
             setGrades(result.data);
         })();
+    };
+
+    useEffect(() => {
+        fetchData()
     }, []);
 
     function showName(candidateDTO) {
@@ -55,7 +59,7 @@ export default function Grades() {
     function addGrades() {
 
         API.post('files/load_grades').then((response) => {
-            console.log("Am adaugat si notele dupa finalizarea de distribuire");
+            fetchData();
         }, (error) => {
             console.log(error);
         });

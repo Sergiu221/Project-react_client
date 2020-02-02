@@ -34,7 +34,7 @@ export default function NavigationBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Item><Nav.Link href="/home"  activeClassName="active" ><h5>Home</h5></Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link href="/home"><h5>Home</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/categories"><h5>Categorii</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/candidates"><h5>Candidati</h5></Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link href="/candidates_options"><h5>Candidati Optiuni</h5></Nav.Link></Nav.Item>

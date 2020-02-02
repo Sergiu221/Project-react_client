@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { API }  from "../utils/API";
+import {API} from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import {Link} from "react-router-dom";
 import Table from "../Table";
@@ -32,7 +32,7 @@ export default function HallsTable() {
         },
         {field: "name", dataType: "java.lang.String", text: "Nume"},
         {field: "size", dataType: "java.lang.Integer", text: "Nr Maxim de locuri"},
-        {field: "utilizableSize", dataType: "java.lang.Integer", text: "Nr Loc. Utilizate"},
+        {field: "utilizableSize", dataType: "java.lang.Integer", text: "Nr loc. disposnibile"},
         {
             field: "id",
             text: "Candidati",

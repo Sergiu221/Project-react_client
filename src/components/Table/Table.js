@@ -112,7 +112,7 @@ export default function Table(props) {
     function filterId() {
         let columns = [];
         columnData.forEach(function (column) {
-            if (column.field !== "id") {
+            if (column.field !== "id" && column.field !== "") {
                 columns.push(column);
             }
         });
@@ -134,7 +134,7 @@ export default function Table(props) {
         let i = 0;
         columnData.forEach((element => {
             try {
-                if (element.field !== "id") {
+                if (element.field !== "id" && element.field !== "") {
                     if (element.field === result[i][0]) {
                         if (result[i][1] === true) {
                             element.isReport = true;
@@ -177,7 +177,7 @@ export default function Table(props) {
                             deleteRow={true}
                             search={true}
                             multiColumnSearch={true}
-                            exportCSV={true}
+                            exportCSV={baseUrl !== 'grades' && baseUrl !== 'candidate_option'}
                             selectRow={selectRowProp}
                             cellEdit={cellEditProp}>
                 {tableHeaderColumns}

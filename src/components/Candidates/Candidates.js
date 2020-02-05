@@ -36,18 +36,13 @@ export default function Candidates() {
         fetchDataCategories();
     }, []);
 
-    function buttonInsideHall(id) {
-        if (id != null) {
+    function buttonInsideHall() {
+        if (arguments[1].hallId != null) {
             return (<div>
-                <Link to={`${baseUrlHalls}/${id.id}`}>{id.name}</Link>
+                <Link to={`${baseUrlHalls}/${arguments[1].hallId}`}>{arguments[1].hallName}</Link>
             </div>)
         }
     }
-
-    const buttonInsideCategory = (id) => id && <div>
-        <Link to={`${baseUrlCategories}/${id.id}`}>{id.name}</Link>
-    </div>;
-
 
     const rejectCandidate = (cnp) => {
         API.get('/admission/reject/' + cnp).then(fetchData);
@@ -72,21 +67,14 @@ export default function Candidates() {
         {field: "bacBestGrade", dataType: "java.lang.Double", text: "Bac"},
         {field: "highSchool", dataType: "java.lang.String", text: "Liceu"},
         {
-            field: "categoryDTO",
-            dataType: "com.sergiu.dto.CategoryDTO",
-            text: "Categoria",
-            extra: {
-                dataFormat: buttonInsideCategory, hiddenOnInsert: true, editable: false
-            },
-        },
-        {
             field: "categoryName",
             text: "Categoria",
-            extra: {editable: {type: 'select', options: {values: getCategoriesName(categories)}}, hidden: true}
+            dataType: "java.lang.String",
+            extra: {editable: {type: 'select', options: {values: getCategoriesName(categories)}}}
         },
         {
-            field: "hallDTO",
-            dataType: "com.sergiu.dto.HallDTO",
+            field: "hallName",
+            dataType: "java.lang.String",
             text: "Sala",
             extra: {dataFormat: buttonInsideHall, editable: false}
         },

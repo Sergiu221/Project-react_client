@@ -30,7 +30,7 @@ export default function Categories() {
 
         {field: "discipline", text: "Disciplina", dataType: "java.lang.String"},
         {field: "language", text: "Limba", dataType: "java.lang.String"},
-        {field: "admissionType", text: "admissionType", dataType: "java.lang.String"},
+        {field: "admissionType", text: "Tip Admitere", dataType: "java.lang.String"},
         {
             field: "candidateDTOS",
             dataType: "com.sergiu.dto.candidateDTO",

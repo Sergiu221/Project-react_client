@@ -16,7 +16,7 @@ const Login = () => {
 
         API.post('/login', {username, password})
             .then(({data}) => {
-                authService.login(data.token);
+                authService.login(data.jwt);
                 toggleRedirect(true);
             })
             .catch((error) => {
@@ -40,7 +40,8 @@ const Login = () => {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Parola</Form.Label>
-                        <Form.Control type="password" placeholder="Introdu parola" value={password} onChange={handlePassword}/>
+                        <Form.Control type="password" placeholder="Introdu parola" value={password}
+                                      onChange={handlePassword}/>
                     </Form.Group>
                     <Button variant="primary" type="submit" className={'login-form-submit-button'}>
                         Login

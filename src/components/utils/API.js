@@ -19,18 +19,16 @@ export const authService = {
         cookie.save('bearer', token);
 
         API.interceptors.request.use(config => {
-            config.headers.Authorization = token;
-
+            config.headers.Authorization = "Bearer " + token;
             return config
         });
 
         API_BLOB.interceptors.request.use(config => {
-            config.headers.Authorization = token;
-
+            config.headers.Authorization = "Bearer " + token;
             return config
         })
     },
-    logout:() => cookie.remove('bearer'),
+    logout: () => cookie.remove('bearer'),
     isAuthenticated: () => cookie.load('bearer') !== undefined,
     getToken: () => cookie.load('bearer')
 };

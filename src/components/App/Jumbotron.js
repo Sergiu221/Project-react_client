@@ -31,7 +31,7 @@ const Jumbotron = () => {
             <Jumbo fluid className="jumbo">
                 <div className="overlay"></div>
                 <Container>
-                    <h1>Examenul de admitere!</h1>
+                    <h1>Aplicatie Web pentru planificarea resurselor in cadrul examenului de admitere</h1>
                 </Container>
             </Jumbo>
         </Styles>

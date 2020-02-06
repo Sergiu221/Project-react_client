@@ -177,6 +177,7 @@ export default function Table(props) {
                             deleteRow={true}
                             search={true}
                             multiColumnSearch={true}
+                            pagination={true}
                             exportCSV={baseUrl !== 'grades' && baseUrl !== 'candidate_option'}
                             selectRow={selectRowProp}
                             cellEdit={cellEditProp}>

@@ -12,6 +12,8 @@ export default function Home() {
     const [numberCandidates, setNumberCandidates] = useState([]);
     const [numberOfSupervisors, setNumberOfSupervisors] = useState([]);
     const [numberOfHalls, setNumberOfHalls] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [allocationDetails, setAllocationDetails] = useState([]);
     const [applicationState, setApplicationState] = useState({
         id: 1,
         isImportedResources: 'false',
@@ -24,7 +26,13 @@ export default function Home() {
     useEffect(() => {
             API.get('data_base').then(({data}) => {
                 setApplicationState(data);
-                console.log(data);
+            })
+        }, []
+    );
+
+    useEffect(() => {
+            API.get('allocation/details').then(({data}) => {
+                setAllocationDetails(data);
             })
         }, []
     );
@@ -34,7 +42,10 @@ export default function Home() {
             setNumberCandidates(data.numberOfCandidates);
             setNumberOfSupervisors(data.numberOfSupervisors);
             setNumberOfHalls(data.numberOfHalls);
+
+            API.get('categories').then(({data}) => setCategories(data))
         });
+
     }, [applicationState]);
 
     const importResources = () => {
@@ -57,9 +68,6 @@ export default function Home() {
 
 
     function finalizeDistribution() {
-        console.log("Aici trebuie sa verific daca toti candidatii au o sala!");
-        //TODO: Veirica daca toti cadidatii sunt intr-o sala
-
         applicationState.isDistributed = 'true';
         applicationState.isDistributedFinalized = 'true';
         setApplicationState({...applicationState});
@@ -74,7 +82,6 @@ export default function Home() {
                                                onClick={finalizeDistribution}> Finalizeza Distribuirea </button>;
 
     function allocation() {
-        //TODO:aici trebuie sa verific daca toti candidatii au note
         API.get("/allocation").then((response) => {
             applicationState.isExamFinish = 'true';
             setApplicationState({...applicationState});
@@ -93,12 +100,11 @@ export default function Home() {
     const ButtonAllocation = <button className="button-finalize-distribution" onClick={allocation}>
         Finalizarea Examen </button>;
 
-
     return (
         <React.Fragment>
             <Row>
                 <Col>
-                    <Card bg="white" text="dark" style={{width: '15rem'}}>
+                    <Card className="card-home" bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header className="d-flex justify-content-center">Candidati</Card.Header>
                         <Card.Body>
                             <Card.Title>Inscrisi</Card.Title>
@@ -108,7 +114,7 @@ export default function Home() {
                     </Card>
                 </Col>
                 <Col>
-                    <Card bg="white" text="dark" style={{width: '15rem'}}>
+                    <Card className="card-home" bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header className="d-flex justify-content-center">Supraveghetori</Card.Header>
                         <Card.Body>
                             <Card.Title>Inscrisi</Card.Title>
@@ -118,7 +124,7 @@ export default function Home() {
                     </Card>
                 </Col>
                 <Col>
-                    <Card bg="white" text="dark" style={{width: '15rem'}}>
+                    <Card className="card-home" bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header className="d-flex justify-content-center">Sali</Card.Header>
                         <Card.Body>
                             <Card.Title>Disponibile</Card.Title>
@@ -128,7 +134,7 @@ export default function Home() {
                     </Card>
                 </Col>
                 {applicationState.isExamFinish === "false" && <Col>
-                    <Card bg="white" text="dark" style={{width: '15rem'}}>
+                    <Card className="card-home" bg="white" text="dark" style={{width: '15rem'}}>
                         <Card.Header>Admitere</Card.Header>
                         <Card.Body>
                             <Card.Title>Optiuni</Card.Title>
@@ -157,7 +163,22 @@ export default function Home() {
                     </Card>
                 </Col>}
             </Row>
-            <ChartHome/>
+            <Row>
+                <Col>
+                    <Card className="card-home" bg="white" text="dark" style={{width: '15rem'}}>
+                        <Card.Header className="d-flex justify-content-center">Facultate Locuri</Card.Header>
+                        <Card.Body>
+                            <Card.Text> RO BUGET: {allocationDetails.roBuget}</Card.Text>
+                            <Card.Text> RO TAXA : {allocationDetails.roTaxa}</Card.Text>
+                            <Card.Text> EN BUGET: {allocationDetails.enBuget} </Card.Text>
+                            <Card.Text> EN TAXA :{allocationDetails.enTaxa}</Card.Text>
+                            <Card.Text> RO MD : {allocationDetails.mdRoBuget}</Card.Text>
+                            <Card.Text> EN MD :{allocationDetails.mdEnBuget}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <ChartHome categories={categories}/>
         </React.Fragment>
     );
 }

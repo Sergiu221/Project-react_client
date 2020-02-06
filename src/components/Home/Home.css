@@ -36,3 +36,7 @@
 .button-finalize-distribution:disabled {
     opacity: 0.5;
 }
+
+.card-home {
+    margin-bottom: 50px;
+}

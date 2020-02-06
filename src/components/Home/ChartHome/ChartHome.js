@@ -3,14 +3,7 @@ import {Bar} from "react-chartjs-2";
 import {MDBContainer} from "mdbreact";
 import {API} from "../../utils/API";
 
-export default function ChartHome() {
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-            API.get('categories').then(({data}) => setCategories(data));
-        }, []
-    );
-
+export default function ChartHome({categories}) {
     const dataBar = {
         labels: Object.keys(categories).map(function (key) {
             return [categories[key].name].toString();

@@ -3,6 +3,7 @@ import {API} from "../utils/API";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import {Link} from "react-router-dom";
 import Table from "../Table";
+import ChartHalls from "./ChartHalls";
 
 export default function HallsTable() {
     const [halls, setHalls] = useState([]);
@@ -11,8 +12,6 @@ export default function HallsTable() {
     useEffect(() => {
         (async () => {
             const result = await API.get(baseUrl);
-            console.log(baseUrl);
-            console.log(result.data);
             setHalls(result.data);
         })();
     }, []);
@@ -41,6 +40,9 @@ export default function HallsTable() {
     ];
 
     return (
-        <Table data={halls} baseUrl={baseUrl} columnData={buildColumnData}/>
+        <div>
+            <ChartHalls halls={halls}/>
+            <Table data={halls} baseUrl={baseUrl} columnData={buildColumnData}/>
+        </div>
     );
 }
